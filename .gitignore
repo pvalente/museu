@@ -6,3 +6,7 @@ backups/
 *.sql
 *.sql.gz
 .DS_Store
+museu-admin*.txt
+# Third-party themes installed by WP-CLI land here via the bind mount; un-ignore custom ones with !wp-content/themes/<name>/
+wp-content/themes/*
+!wp-content/themes/.gitkeep

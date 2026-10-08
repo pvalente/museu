@@ -1,9 +1,9 @@
 FROM wordpress:6-php8.3-apache
 
-# Tainacan needs imagick/gd for thumbnails of museum images
+# Tainacan needs imagick/gd for thumbnails of museum images. The base image already
+# ships and enables imagick; ghostscript adds PDF thumbnails.
 RUN apt-get update \
- && apt-get install -y --no-install-recommends libmagickwand-dev ghostscript unzip curl \
- && pecl install imagick && docker-php-ext-enable imagick \
+ && apt-get install -y --no-install-recommends ghostscript unzip curl \
  && rm -rf /var/lib/apt/lists/*
 
 # WP-CLI

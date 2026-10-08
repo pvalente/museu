@@ -15,5 +15,8 @@ $WP core is-installed 2>/dev/null || {
 $WP language core install pt_BR --activate || true
 $WP rewrite structure '/%postname%/' --hard
 $WP plugin install tainacan --activate
-$WP theme install tainacan-theme --activate || true
+$WP theme install tainacan-interface --activate || true
+# Core pt_BR doesn't cover plugins/themes; fetch their translations too.
+$WP language plugin install --all pt_BR || true
+$WP language theme install --all pt_BR || true
 echo "Done. Open $WP_HOME/wp-admin -> Tainacan to create your first collection."
