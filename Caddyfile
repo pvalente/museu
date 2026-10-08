@@ -1,0 +1,5 @@
+# Production reverse proxy with automatic HTTPS (Let's Encrypt).
+{$DOMAIN} {
+	encode zstd gzip
+	reverse_proxy wordpress:80
+}
