@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Paste into Lightsail "Launch script" (Ubuntu 24.04). Edit DOMAIN/EMAIL first.
+# DOMAIN: your hostname (HTTPS auto) or ":80" for plain HTTP on the IP.
+DOMAIN=":80"
+EMAIL="pedro.valente@gmail.com"
+set -euxo pipefail
+curl -fsSL https://get.docker.com | sh
+git clone https://github.com/pvalente/museu.git /opt/museu
+cd /opt/museu
+IP=$(curl -s http://checkip.amazonaws.com)
+if [ "$DOMAIN" = ":80" ]; then HOME_URL="http://$IP"; else HOME_URL="https://$DOMAIN"; fi
+cat > .env <<ENV
+DOMAIN=$DOMAIN
+WP_DB_NAME=museu
+WP_DB_USER=museu
+WP_DB_PASSWORD=$(openssl rand -hex 16)
+WP_DB_ROOT_PASSWORD=$(openssl rand -hex 16)
+WP_HOME=$HOME_URL
+ENV
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+until docker compose exec -T wordpress true 2>/dev/null; do sleep 3; done
+scripts/setup.sh "Museu" admin "$EMAIL" | tee /root/museu-admin.txt
+echo "0 3 * * * cd /opt/museu && scripts/backup.sh" | crontab -
