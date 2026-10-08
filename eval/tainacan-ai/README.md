@@ -45,6 +45,8 @@ broke), the pixel size of the image(s) sent and the request time.
 
 A full single-photo run (28 cases) takes about 7 minutes and ~190k input + 30k output tokens on Claude Sonnet 5.5
 (~6.7k in / 1.1k out per image with the 12 INBCM fields).
+Images go out downscaled to a 1568 px long edge (site option `museu_ai_image_max_edge`, chosen in
+`results/2026-10-08-image-size.md`); earlier results sent the full ~1,920 px images.
 
 **Single vs multi-photo.** Tainacan AI sends one image per analysis, so `MODE=single` (default) sends each case's
 first view through the real `/tainacan-ai/v1/analyze` endpoint. `MODE=multi` is a prototype (`multi_analyze()` in
@@ -113,6 +115,7 @@ Checks that apply to every case:
 | `inbcm-effort-*` | Effort sweep on Sonnet 5.5 (`output_config.effort`; API default is `high`). `low` and `medium` never think (0 thinking tokens on all 8) and cost ~US$0.022/image vs ~0.028 at `high` (−21%), 6 s vs 10 s; but in 5/5 runs they put the printed "E. E. Santo" (the state, Espírito Santo) in e2's Autor, and `medium` missed e3's Data de Produção "26/9/03" twice. `high` thinks only on the text-heavy e2, e3, e6 and passes (2/2). `xhigh` hits the 4,000 max_tokens on e2 and e6. Verdict: keep the default (`high`). |
 | `cases-single-sonnet` | First case-driven run, all 28 cases, one view: **24/28**. Misses: e3 named just "Placa", which the matcher resolves alphabetically to the homonym Placa (condecoração); c12 Grilhão for Gargalheira and c16 Espelho de fechadura for Aldrava (right class both times); c13 Relevo for Fragmento. Details and suggestions: `results/2026-10-08-cases-findings.md`. |
 | `cases-multi-sonnet` | m1–m4 with all views in one request (prototype): 4/4, same terms as with one view, but it transcribes the sextant's gift plate (and keeps 1922 out of Data de Produção), gets the coin's 1913, reads the mirrored stamp and the maker's marks. ~1.6× input and ~2.2× output tokens. `cases-multi-first-control` (prototype, first view only) matches the endpoint's tokens, so the prototype sends the same system prompt. |
+| `image-size` | Long-edge sweep (orig/1568/1024/768/512) on e1, e2, e3, e6, m3-2, m4-2. Titles and descriptions hold down to 512; transcription doesn't: at 1024 the faint print on e2 and the 1766 caption on e6 degrade (3/3), at 512 the caption is illegible. 1568 matches the original. Default set to **1568** (option `museu_ai_image_max_edge`), saving ~2,400 input tokens (US$0.005) on a 2,560 px photo, ~1,100 on 1,920 px. |
 
 Known limits: e4's monogram isn't read (fine; it's honest about it), and the ` / ` line breaks follow the AI's
 reading of the layout, so check them on long texts.
