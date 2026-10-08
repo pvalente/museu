@@ -15,7 +15,9 @@ $WP core is-installed 2>/dev/null || {
 $WP language core install pt_BR --activate || true
 $WP rewrite structure '/%postname%/' --hard
 $WP plugin install tainacan --activate
-$WP theme install tainacan-interface --activate || true
+# Blocksy + Tainacan's official integration; look tweaks live in wp-content/mu-plugins/museu-blocksy.php.
+$WP theme install blocksy --activate
+$WP plugin install tainacan-blocksy --activate
 # Drop bundled extras we don't use; keep the newest default theme as a fallback.
 $WP plugin delete akismet hello 2>/dev/null || true
 $WP theme delete twentytwentythree twentytwentyfour 2>/dev/null || true
@@ -35,4 +37,19 @@ $WP theme auto-updates enable --all
 $WP option update auto_update_core_major disabled
 # Keep temporary sslip.io hostnames out of search engines; set-domain.sh turns indexing on for a real domain.
 case "$WP_HOME" in *sslip.io*|*localhost*) $WP option update blog_public 0 ;; *) $WP option update blog_public 1 ;; esac
+# First run only: static home page (content/home.html), header menu, and remove WP's sample content.
+if [ "$($WP option get show_on_front)" != page ]; then
+  HOME_ID=$($WP post create - --post_type=page --post_title="Início" --post_name=inicio --post_status=publish --porcelain < content/home.html)
+  $WP option update show_on_front page
+  $WP option update page_on_front "$HOME_ID"
+  $WP post meta update "$HOME_ID" blocksy_post_meta_options '{"has_hero_section":"disabled"}' --format=json
+  MENU=$($WP menu create "Principal" --porcelain)
+  $WP menu item add-post "$MENU" "$HOME_ID" --title="Início"
+  $WP menu item add-custom "$MENU" "Coleções" /colecoes/
+  $WP menu item add-custom "$MENU" "Acervo" /itens/
+  $WP menu location assign "$MENU" menu_1
+  for slug in hello-world sample-page; do
+    for id in $($WP post list --post_type=post,page --name="$slug" --field=ID); do $WP post delete "$id" --force; done
+  done
+fi
 echo "Done. Open $WP_HOME/wp-admin -> Tainacan to create your first collection."

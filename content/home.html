@@ -1,0 +1,60 @@
+<!-- wp:group {"layout":{"type":"constrained","contentSize":"960px"},"style":{"spacing":{"padding":{"top":"48px","bottom":"64px"}}}} -->
+<div class="wp-block-group" style="padding-top:48px;padding-bottom:64px">
+
+<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontSize":"12px"}},"textColor":"palette-color-3"} -->
+<p class="has-palette-color-3-color has-text-color" style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase">Em construção · não divulgar</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">Acervo do Museu</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Catálogo das peças do museu, em fase de organização. Os dados e imagens desta página são provisórios.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/itens/">Explorar o acervo</a></div>
+<!-- /wp:button -->
+<!-- wp:button {"className":"is-style-outline"} -->
+<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/colecoes/">Ver coleções</a></div>
+<!-- /wp:button -->
+</div>
+<!-- /wp:buttons -->
+
+<!-- wp:spacer {"height":"48px"} -->
+<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Peças recentes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:tainacan/items-gallery {"loadStrategy":"search","searchParams":{"posts_per_page":8,"orderby":"date","order":"DESC"},"maxItemsNumber":8,"layoutElements":{"main":false,"thumbnails":true},"thumbsLayout":"grid","hideItemTitleThumbnails":false,"thumbnailsCarouselItemSize":200} /-->
+
+<!-- wp:spacer {"height":"48px"} -->
+<div style="height:48px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Coleções</h2>
+<!-- /wp:heading -->
+
+<!-- wp:query {"queryId":1,"query":{"perPage":12,"postType":"tainacan-collection","order":"asc","orderBy":"title","inherit":false}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-title {"isLink":true,"level":3,"fontSize":"medium"} /-->
+<!-- wp:post-excerpt /-->
+<!-- /wp:post-template -->
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>Nenhuma coleção publicada ainda.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results -->
+</div>
+<!-- /wp:query -->
+
+</div>
+<!-- /wp:group -->
