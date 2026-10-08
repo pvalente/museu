@@ -1,0 +1,700 @@
+[
+  {
+    "id": "e1",
+    "images": [
+      "e1.jpg"
+    ],
+    "object": "Wooden toucan carving, phone photo on a shelf next to a vase",
+    "expected": {
+      "denominacao": "Figura animal (escultura)",
+      "classificacao": "Objetos associados às artes plásticas e ao desenho técnico",
+      "classe": "Objetos de atividades artísticas",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Phone photo with clutter: describe the carving only, never the shelf, vase or wall. Material/Técnica: Madeira, Entalhe, Pintura; Estado Bom or Regular. 'Escultura' (parent term) is acceptable.",
+      "denominacao_alternativas": [
+        "Escultura"
+      ]
+    },
+    "museum_record": "Family object (Museu da minha casa); no catalogue record.",
+    "source": {
+      "title": null,
+      "url": null,
+      "credit": "Family photo (Museu da minha casa)",
+      "license": "All rights reserved"
+    }
+  },
+  {
+    "id": "e2",
+    "images": [
+      "e2.jpg"
+    ],
+    "object": "Handwritten New Year's note, 1914, on a printed card (front)",
+    "expected": {
+      "denominacao": null,
+      "classificacao": null,
+      "classe": null,
+      "data_producao": "24-12-1914",
+      "inscricoes": "Villa de Santa Thereza; E. E. Santo; 24-12-1914; Carlos J. Avancini (faint printed name)",
+      "notes": "Document: no thesaurus term expected (null is right). Transcribe with ' / ' line breaks, mark doubtful words [?], transcribe the faint printed name. The printed 'Villa de Santa Thereza' is the card's printer, not the production place (null Local is fine). Material/Técnica: Papel, Escrita manual, Impressão; Estado Regular."
+    },
+    "museum_record": "Museu do Colono 2022.370: bilhete (note) on printed card, 1914.",
+    "source": {
+      "title": "File:Bilhete, Museu do Colono (2022-370).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Bilhete,_Museu_do_Colono_(2022-370).jpg",
+      "credit": "Museu do Colono / Midiateca Capixaba",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "e3",
+    "images": [
+      "e3.jpg"
+    ],
+    "object": "Engraved plaque in homage to Santos Dumont, 1903",
+    "expected": {
+      "denominacao": "Placa comemorativa",
+      "classificacao": "Objetos cerimoniais e/ou comemorativos",
+      "classe": "Insígnias e objetos cerimoniais e comemorativos",
+      "data_producao": "26/9/03",
+      "inscricoes": "Santos Dumont; Sport Nautico da Bahia; 26/9/03",
+      "notes": "Engraved cursive: full transcription incl. '26/9/03'; date not in the title. Material/Técnica: Metal, Gravação; Estado Bom."
+    },
+    "museum_record": "Museu Paulista (Santos Dumont collection): homage plaque from the Sport Nautico da Bahia, dated 26/9/1903.",
+    "source": {
+      "title": "File:Homenagem do Sport Nautico da Bahia a Santos Dumont, Acervo do Museu Paulista da USP (4).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Homenagem_do_Sport_Nautico_da_Bahia_a_Santos_Dumont,_Acervo_do_Museu_Paulista_da_USP_(4).jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "e4",
+    "images": [
+      "e4.jpg"
+    ],
+    "object": "Silver-plated teapot with monogram",
+    "expected": {
+      "denominacao": "Bule",
+      "classificacao": "Objetos e equipamentos de serviço de alimentos",
+      "classe": "Objetos domésticos",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Plain object, ambiguous materials: hedge materials ('aparentemente'); do not invent the monogram letters; no 'Marfim' tag. Material/Técnica: Metal, Gravação. 'Bule de chá'/'Bule de café' acceptable only if justified.",
+      "denominacao_alternativas": [
+        "Bule de chá",
+        "Bule de café"
+      ]
+    },
+    "museum_record": "Museu Paulista 1-07-03-000-05800: bule (teapot), silver-plated, with monogram.",
+    "source": {
+      "title": "File:Bule (1-07-03-000-05800-00-00-01), Acervo do Museu Paulista da USP.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Bule_(1-07-03-000-05800-00-00-01),_Acervo_do_Museu_Paulista_da_USP.jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "e5",
+    "images": [
+      "e5.jpg"
+    ],
+    "object": "Lidded basket in a display case next to another basket",
+    "expected": {
+      "denominacao": "Cesta",
+      "classificacao": "Recipientes",
+      "classe": "Recipientes",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Museum display: ignore the case and the other basket; no people/culture named. Material/Técnica: Fibra vegetal (+ Trançado); Estado Regular."
+    },
+    "museum_record": "Museu Nacional/UFRJ: lidded basket (cesto com tampa), Karajá, before 1939.",
+    "source": {
+      "title": "File:Cesto com tampa - Karajá 1939 MN 01.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cesto_com_tampa_-_Karaj%C3%A1_1939_MN_01.jpg",
+      "credit": "Photo by Dornicke; object by the Karajá people, Museu Nacional/UFRJ",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "e6",
+    "images": [
+      "e6.jpg"
+    ],
+    "object": "Ex-voto painting with long abbreviated caption, 1766",
+    "expected": {
+      "denominacao": "Ex-voto",
+      "classificacao": "Objetos rituais e cerimoniais",
+      "classe": "Objetos de ritos, cultos e crenças",
+      "data_producao": "1766",
+      "inscricoes": "gravem.te; Senr.a; DEOS; 1766",
+      "notes": "Literal transcription keeping the abbreviations; no 'estilo colonial'; dates only from the caption. Material/Técnica: Madeira, Pintura, Escrita manual; Estado Regular."
+    },
+    "museum_record": "Museu Histórico Nacional: painted ex-voto with votive caption, 1766.",
+    "source": {
+      "title": "File:Ex-voto, da coleção Museu Histórico Nacional.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Ex-voto,_da_cole%C3%A7%C3%A3o_Museu_Hist%C3%B3rico_Nacional.jpg",
+      "credit": "Museu Histórico Nacional",
+      "license": "Public domain"
+    }
+  },
+  {
+    "id": "e7",
+    "images": [
+      "e7.jpg"
+    ],
+    "object": "Painted ceramic bowl (Marajoara collection)",
+    "expected": {
+      "denominacao": "Tigela",
+      "classificacao": "Objetos e equipamentos de serviço de alimentos",
+      "classe": "Objetos domésticos",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Strong style cues: no cultural attribution (it once guessed 'Shipibo-Konibo'). Material/Técnica: Cerâmica, Pintura; Estado Regular. Archaeological context makes 'Vasilha' (Recipientes) defensible too.",
+      "denominacao_alternativas": [
+        "Vasilha"
+      ]
+    },
+    "museum_record": "Museu Nacional/UFRJ, Marajoara ceramics collection: painted bowl.",
+    "source": {
+      "title": "File:Cultura Marajoara - Cerâmica MN 05.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Cultura_Marajoara_-_Cer%C3%A2mica_MN_05.jpg",
+      "credit": "Photo by Dornicke, Museu Nacional/UFRJ",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "e8",
+    "images": [
+      "e8.jpg"
+    ],
+    "object": "Back of the e2 note: ink showing through, mirrored",
+    "expected": {
+      "denominacao": null,
+      "classificacao": null,
+      "classe": null,
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Must say the writing is mirrored show-through and must NOT transcribe or invent it; date null. Material/Técnica: Papel, Escrita manual; Estado Regular."
+    },
+    "museum_record": "Museu do Colono 2022.370 (back of the note).",
+    "source": {
+      "title": "File:Bilhete, Museu do Colono (2022.370).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Bilhete,_Museu_do_Colono_(2022.370).jpg",
+      "credit": "Museu do Colono / Midiateca Capixaba",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c01",
+    "images": [
+      "c01.jpg"
+    ],
+    "object": "Single blue-and-white glazed tile, floral motif",
+    "expected": {
+      "denominacao": "Azulejo",
+      "classificacao": "Elementos de construção",
+      "classe": "Estruturas edificadas e elementos de construção",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Loose architectural tile on a plain background: must classify as building element, not as decorative domestic object. No origin (the record says Europe) or date: nothing is written."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.1837: Azulejo, 14 x 14 cm, made in Europe.",
+    "source": {
+      "title": "File:Azulejo - Museu de Alcântara (MCHA.1837) - 2026-05-27 15.04.48.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Azulejo_-_Museu_de_Alc%C3%A2ntara_(MCHA.1837)_-_2026-05-27_15.04.48.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c02",
+    "images": [
+      "c02.jpg"
+    ],
+    "object": "Folding hand fan, painted fabric leaf with wooden/metal sticks",
+    "expected": {
+      "denominacao": "Leque",
+      "classificacao": "Objetos de auxílio, cuidados e conforto pessoais",
+      "classe": "Objetos de uso pessoal",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Easy object name; check materials hedge (tecido/seda?, madeira, metal) and no invented date or origin."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.0636: Leque, c. 1900, wood, metal and textile, 36 cm long.",
+    "source": {
+      "title": "File:Leque - Museu de Alcântara (MCHA.0636) - 2023-02-27 09.12.19.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Leque_-_Museu_de_Alc%C3%A2ntara_(MCHA.0636)_-_2023-02-27_09.12.19.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c03",
+    "images": [
+      "c03.jpg"
+    ],
+    "object": "Men's straw hat, panama style, black grosgrain band",
+    "expected": {
+      "denominacao": "Chapéu",
+      "classificacao": "Vestuário",
+      "classe": "Objetos de uso pessoal",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "'Chapéu-panamá' is also correct (museum: 'estilo panamá'). The maker's inscription 'Cinelli' is inside and not visible: must not be invented. Must not attribute it to Santos Dumont.",
+      "denominacao_alternativas": [
+        "Chapéu-panamá"
+      ]
+    },
+    "museum_record": "Museu Paulista 1-08-01-000-01472 (Santos Dumont collection): men's panama-style straw hat, wide brim, textile lining, leather edge, black grosgrain band with bow; inscription 'Cinelli'.",
+    "source": {
+      "title": "File:Chapéu Masculino, Acervo do Museu Paulista da USP (1).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Chap%C3%A9u_Masculino,_Acervo_do_Museu_Paulista_da_USP_(1).jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c04",
+    "images": [
+      "c04.jpg"
+    ],
+    "object": "Wooden hand plane (carpentry tool)",
+    "expected": {
+      "denominacao": "Plaina",
+      "classificacao": "Equipamento de atividades de transformação",
+      "classe": "Equipamento de atividades produtivas",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Worn wooden tool: should recognise a plane (not a box or toy). 'Plaina manual' also acceptable.",
+      "denominacao_alternativas": [
+        "Plaina manual"
+      ]
+    },
+    "museum_record": "Museu do Colono 2022-283: Plaina (hand plane).",
+    "source": {
+      "title": "File:Plaina, Museu do Colono (2022-283) 01.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Plaina,_Museu_do_Colono_(2022-283)_01.jpg",
+      "credit": "Museu do Colono / Midiateca Capixaba",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c05",
+    "images": [
+      "c05.jpg"
+    ],
+    "object": "Sickle with curved iron blade and light handle",
+    "expected": {
+      "denominacao": "Foice",
+      "classificacao": "Equipamentos de agricultura, pecuária e pesca",
+      "classe": "Equipamento de atividades produtivas",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Should not call it a weapon. Dark background only."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.1286: Foice, 36.4 cm long.",
+    "source": {
+      "title": "File:Foice - Museu de Alcântara (MCHA.1286) - 2023-03-13 10.47.48.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Foice_-_Museu_de_Alc%C3%A2ntara_(MCHA.1286)_-_2023-03-13_10.47.48.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c06",
+    "images": [
+      "c06.jpg"
+    ],
+    "object": "Round aneroid barometer in a dark wooden frame on a stand",
+    "expected": {
+      "denominacao": "Barômetro",
+      "classificacao": "Equipamento associado à meteorologia",
+      "classe": "Equipamentos de atividades científicas e tecnológicas",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Dial text is in Spanish: transcribe only what is legible, don't translate as if Portuguese. 'Barômetro aneróide' is the more specific correct term. Must not confuse with a clock.",
+      "denominacao_alternativas": [
+        "Barômetro aneróide"
+      ]
+    },
+    "museum_record": "Museu do Colono 72.1.346: barometer of wood and metal, round with glass face, writing in Spanish, mechanism visible, toothed wooden surround, ring for hanging.",
+    "source": {
+      "title": "File:Barômetro, Museu do Colono (72.1.346).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Bar%C3%B4metro,_Museu_do_Colono_(72.1.346).jpg",
+      "credit": "Museu do Colono / Midiateca Capixaba",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c07",
+    "images": [
+      "c07.jpg"
+    ],
+    "object": "Horn gramophone with red and gold painted horn, photographed on the museum floor",
+    "expected": {
+      "denominacao": "Gramofone",
+      "classificacao": "Equipamento de comunicação sonora",
+      "classe": "Equipamento de comunicação",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Mild clutter (floor, wall stripe): describe the gramophone only. Must not classify as musical instrument (Objetos associados à música)."
+    },
+    "museum_record": "Museu do Colono 74.3.14: gramophone, horn of stamped zinc painted in red and gold bands, square wooden base, for 25 cm records.",
+    "source": {
+      "title": "File:Gramofone, Museu do Colono (74.3.14) 02.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Gramofone,_Museu_do_Colono_(74.3.14)_02.jpg",
+      "credit": "Museu do Colono / Midiateca Capixaba",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c08",
+    "images": [
+      "c08.jpg"
+    ],
+    "object": "Tin spinning top with wooden handle, striped lithographed body",
+    "expected": {
+      "denominacao": "Pião",
+      "classificacao": "Equipamento lúdico",
+      "classe": "Equipamentos de lazer e esporte",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Museum tag 'RG 8390' and the scale bar are photo props, not inscriptions on the object (may be mentioned as label, not as Inscrições)."
+    },
+    "museum_record": "Museu Paulista 1-14-02-000-08390 (toy collection): Brinquedo – pião, metal and wood.",
+    "source": {
+      "title": "File:Brinquedo - Pião, Acervo do Museu Paulista da USP (2).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Brinquedo_-_Pi%C3%A3o,_Acervo_do_Museu_Paulista_da_USP_(2).jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c09",
+    "images": [
+      "c09.jpg"
+    ],
+    "object": "Imperial Brazilian banknote, 1 mil réis, portrait of Pedro II (scan)",
+    "expected": {
+      "denominacao": "Cédula",
+      "classificacao": "Dinheiro",
+      "classe": "Objetos pecuniários",
+      "data_producao": null,
+      "inscricoes": "IMPERIO DO BRASIL; NO THESOURO NACIONAL; UM MIL REIS; No. 2413; American Bank Note Co. New York",
+      "notes": "Flat scan: must transcribe the printed text and serial 2413 and the value 'Um mil réis'. No issue date is printed (museum: 1874–1889), so Data de Produção must be null. May identify Pedro II only if hedged; signature illegible -> [?]."
+    },
+    "museum_record": "Museu Paulista: cédula of 1$000 réis issued by the Tesouro Nacional, Imperial period (between 1874 and 1889).",
+    "source": {
+      "title": "File:Papel-moeda - 1000 réis.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Papel-moeda_-_1000_r%C3%A9is.jpg",
+      "credit": "Casa da Moeda / American Bank Note Co. (printer); scan of Museu Paulista note from MP/Safra catalogue",
+      "license": "Public domain"
+    }
+  },
+  {
+    "id": "c10",
+    "images": [
+      "c10.jpg"
+    ],
+    "object": "Cast bronze stirrup with openwork footplate",
+    "expected": {
+      "denominacao": "Estribo",
+      "classificacao": "Veículos terrestres e acessórios",
+      "classe": "Veículos e acessórios",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Should not be called a lamp or ornament; a horse-riding accessory belongs to Veículos e acessórios (Arreio)."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.0662: Estribo, bronze, made in Brazil, 18.1 x 13.9 x 6.5 cm.",
+    "source": {
+      "title": "File:Estribo - Museu de Alcântara (MCHA.0662) - 2026-02-20 15.25.18.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Estribo_-_Museu_de_Alc%C3%A2ntara_(MCHA.0662)_-_2026-02-20_15.25.18.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c11",
+    "images": [
+      "c11.jpg"
+    ],
+    "object": "Double-barrel percussion pistol (garrucha), iron and wood",
+    "expected": {
+      "denominacao": "Pistola",
+      "classificacao": "Armas e acessórios",
+      "classe": "Equipamentos de caça e de guerra",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Tests alt label: the museum calls it 'Garrucha', which the thesaurus lists as an alternative label of 'Pistola'; the preferred term must be returned. No date (museum: 19th c.)."
+    },
+    "museum_record": "Museu da Capitania de Ilhéus: double-barrelled garrucha, iron and wood, 19th century.",
+    "source": {
+      "title": "File:Garrucha 01- lado a- Museu da Capitania de Ilhéus.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Garrucha_01-_lado_a-_Museu_da_Capitania_de_Ilh%C3%A9us.jpg",
+      "credit": "Leslie Madureira Sá / Museu da Capitania de Ilhéus",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c12",
+    "images": [
+      "c12.jpg"
+    ],
+    "object": "Iron slave collar (gargalheira)",
+    "expected": {
+      "denominacao": "Gargalheira",
+      "classificacao": "Instrumentos de punição",
+      "classe": "Instrumentos de punição",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Class without subclasses: Classificação = class label. Sensitive object: plain, factual description, no euphemism ('colar', 'argola') and no speculation about its use beyond what is evident."
+    },
+    "museum_record": "Museu da Abolição (Recife) 83.27: gargalheira, made in Cachoeira do Carmo, 25 x 15 cm.",
+    "source": {
+      "title": "File:Gargalheira, MAB (83.27), foto 1.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Gargalheira,_MAB_(83.27),_foto_1.jpg",
+      "credit": "Museu da Abolição (Ibram), Recife",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c13",
+    "images": [
+      "c13.jpg"
+    ],
+    "object": "Fragment of a carved marble vase with floral relief, colour chart and inventory tag beside it",
+    "expected": {
+      "denominacao": "Fragmento",
+      "classificacao": "Amostras e fragmentos",
+      "classe": "Amostras e fragmentos",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Class without subclasses. Must describe it as a fragment (broken edges) of a vase, not a complete relief or plaque. Museum records it as 'Vaso (fragmento de)'; the thesaurus has no 'fragmento de vaso', so 'Fragmento' is expected. The tag '3577' is an inventory label, not an inscription."
+    },
+    "museum_record": "Museu Paulista 1-06-02-000-03577 (decorative objects): fragment of a marble vase, 10.5 x 9 cm.",
+    "source": {
+      "title": "File:Vaso (Fragmento De) (1-06-02-000-03577-00-00-01).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Vaso_(Fragmento_De)_(1-06-02-000-03577-00-00-01).jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c14",
+    "images": [
+      "c14.jpg"
+    ],
+    "object": "Acoustic guitar hanging against a dark backdrop",
+    "expected": {
+      "denominacao": "Violão",
+      "classificacao": "Objetos associados à música",
+      "classe": "Objetos de atividades artísticas",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Ignore the suspension string. Must not call it 'viola' or 'guitarra' (pt-BR: violão)."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.1567: Violão, 98.7 x 43.2 cm.",
+    "source": {
+      "title": "File:Violão - Museu de Alcântara (MCHA.1567) - 2023-02-13 09.13.36.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Viol%C3%A3o_-_Museu_de_Alc%C3%A2ntara_(MCHA.1567)_-_2023-02-13_09.13.36.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c15",
+    "images": [
+      "c15.jpg"
+    ],
+    "object": "Copper chamberstick with ring handle (palmatória)",
+    "expected": {
+      "denominacao": "Palmatória (castiçal)",
+      "classificacao": "Objetos e equipamentos de iluminação",
+      "classe": "Objetos domésticos",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Homonym trap: the thesaurus has 'Palmatória' (Instrumentos de punição) and 'Palmatória (castiçal)'. This is a candle holder, so the lighting term is right; 'Castiçal' is acceptable. The inventory number on the colour card (11299) is not an inscription.",
+      "denominacao_alternativas": [
+        "Castiçal"
+      ]
+    },
+    "museum_record": "Museu Paulista 1-06-05-000-11299 (lighting objects): palmatória, catalogued as castiçal, 7 x 20 cm.",
+    "source": {
+      "title": "File:Palmatória (1-06-05-000-11299-00-00-01).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Palmat%C3%B3ria_(1-06-05-000-11299-00-00-01).jpg",
+      "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "c16",
+    "images": [
+      "c16.jpg"
+    ],
+    "object": "Wrought-iron door knocker with escutcheon plate, rusted and partly whitewashed",
+    "expected": {
+      "denominacao": "Aldrava",
+      "classificacao": "Elementos de construção",
+      "classe": "Estruturas edificadas e elementos de construção",
+      "data_producao": null,
+      "inscricoes": null,
+      "notes": "Second building-element case: door hardware belongs to Elementos de construção (Porta > Aldrava), not domestic objects. 'Aldraba' is an alt label."
+    },
+    "museum_record": "Museu Casa Histórica de Alcântara MCHA.1350: Aldrava, 20.5 x 7.8 cm.",
+    "source": {
+      "title": "File:Aldrava - Museu de Alcântara (MCHA.1350) - 2023-06-23 09.16.38.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Aldrava_-_Museu_de_Alc%C3%A2ntara_(MCHA.1350)_-_2023-06-23_09.16.38.jpg",
+      "credit": "Museu Casa Histórica de Alcântara (Ibram)",
+      "license": "CC BY-SA 4.0"
+    }
+  },
+  {
+    "id": "m1",
+    "images": [
+      "m1-1.jpg",
+      "m1-2.jpg",
+      "m1-3.jpg"
+    ],
+    "object": "Santos Dumont's sextant: instrument, engraved silver plate in the lid, wooden case",
+    "expected": {
+      "denominacao": "Sextante",
+      "classificacao": "Equipamentos associados à topografia e à navegação",
+      "classe": "Equipamentos de atividades científicas e tecnológicas",
+      "data_producao": "1922",
+      "inscricoes": "Sextante / que depois de usado por / Santos=Dumont / foi por êle dado a Gago Coutinho / em 1922",
+      "notes": "From view 1 alone only 'sextante' and materials are knowable. With views 2–3 the answer must transcribe the plate and may use it for history, but Data de Produção should be null or clearly about the gift (1922 is the date of the donation, not of manufacture) — a good answer does not put 1922 as production date without saying so. Material/Técnica: Metal, Vidro, Madeira."
+    },
+    "museum_record": "Museu Paulista 1-17-02-000-01823 (Santos Dumont collection): sextant of metal with glass lenses and wooden grip; screwdriver 12 cm; silver plate with inscriptions; case 17 x 17 x 10 cm.",
+    "source": [
+      {
+        "title": "File:Sextante, Acervo do Museu Paulista da USP (6).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Sextante,_Acervo_do_Museu_Paulista_da_USP_(6).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Sextante, Acervo do Museu Paulista da USP (4).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Sextante,_Acervo_do_Museu_Paulista_da_USP_(4).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Sextante, Acervo do Museu Paulista da USP (3).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Sextante,_Acervo_do_Museu_Paulista_da_USP_(3).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "multi_view_gain": "View 2 (plate inside the lid) gives the provenance — used by Santos Dumont and given by him to Gago Coutinho in 1922 — which nothing in view 1 shows; view 3 shows the fitted wooden case it belongs with."
+  },
+  {
+    "id": "m2",
+    "images": [
+      "m2-1.jpg",
+      "m2-2.jpg"
+    ],
+    "object": "Brazilian 2000 réis silver coin, 1913 (value side and effigy side)",
+    "expected": {
+      "denominacao": "Moeda",
+      "classificacao": "Dinheiro",
+      "classe": "Objetos pecuniários",
+      "data_producao": "1913",
+      "inscricoes": "ORDEM E PROGRESSO; 2000 RÉIS; 15 DE NOVEMBRO DE 1889; REPUBLICA DOS ESTADOS UNIDOS DO BRAZIL; 1913",
+      "notes": "View 1 shows '15 de novembro de 1889' (date of the Republic, part of the design) — must NOT be taken as production date. The minting year 1913 is only on view 2. Material: Metal (prata, hedged)."
+    },
+    "museum_record": "Museu da Capitania de Ilhéus: 2000 réis coin, 1913; inscriptions 'Ordem e Progresso / 2000 réis – 15 de nov. 1889' and 'Republica dos Estados Unidos do Brasil / 1913'.",
+    "source": [
+      {
+        "title": "File:Moeda 2000 réis- 1913- frente- Museu da Capitania de Ilhéus.jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Moeda_2000_r%C3%A9is-_1913-_frente-_Museu_da_Capitania_de_Ilh%C3%A9us.jpg",
+        "credit": "VitóriaBCarvalho / Museu da Capitania de Ilhéus",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Moeda 2000 réis- 1913- verso- Museu da Capitania de Ilhéus.jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Moeda_2000_r%C3%A9is-_1913-_verso-_Museu_da_Capitania_de_Ilh%C3%A9us.jpg",
+        "credit": "VitóriaBCarvalho / Museu da Capitania de Ilhéus",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "multi_view_gain": "View 2 (effigy side) carries the issuing state and the real year 1913; view 1 alone only has the Republic's founding date 1889, a trap for Data de Produção."
+  },
+  {
+    "id": "m3",
+    "images": [
+      "m3-1.jpg",
+      "m3-2.jpg",
+      "m3-3.jpg"
+    ],
+    "object": "Santos Dumont's rubber hand stamp with wooden handle: overall view, stamp face, maker's mark on the base",
+    "expected": {
+      "denominacao": "Carimbo",
+      "classificacao": "Equipamento de comunicação escrita",
+      "classe": "Equipamento de comunicação",
+      "data_producao": null,
+      "inscricoes": "CABANGU; S=D; MANTIQUEIRA; J. XAVIER / RUA SACHET 10",
+      "notes": "View 2 shows the stamp face in mirror image: a good answer reads it as 'CABANGU / S=D / MANTIQUEIRA' (or says it is mirrored and transcribes the reading) and does not transcribe letters backwards. View 3 has the maker/seller stamp 'J. Xavier, Rua Sachet 10' (the '1790' and 'RG 1790' are museum numbers, not inscriptions). It is an ink hand stamp, so 'Carimbo'; 'Carimbo (selo)' acceptable.",
+      "denominacao_alternativas": [
+        "Carimbo (selo)"
+      ]
+    },
+    "museum_record": "Museu Paulista 1-12-00-000-01790 (Santos Dumont collection): carimbo, wood and synthetic rubber. (The Commons description of this file is mismatched and was ignored.)",
+    "source": [
+      {
+        "title": "File:Carimbo, Acervo do Museu Paulista da USP (1).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Carimbo,_Acervo_do_Museu_Paulista_da_USP_(1).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Carimbo, Acervo do Museu Paulista da USP (3).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Carimbo,_Acervo_do_Museu_Paulista_da_USP_(3).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Carimbo, Acervo do Museu Paulista da USP (4).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Carimbo,_Acervo_do_Museu_Paulista_da_USP_(4).jpg",
+        "credit": "José Rosael/Hélio Nobre/Museu Paulista da USP",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "multi_view_gain": "View 1 shows only a handled stamp with the museum tag; view 2 reveals the text and monogram (Santos Dumont's Cabangu farm in the Mantiqueira, 'S=D'); view 3 reveals the maker's mark 'J. Xavier, Rua Sachet 10'."
+  },
+  {
+    "id": "m4",
+    "images": [
+      "m4-1.jpg",
+      "m4-2.jpg"
+    ],
+    "object": "Porcelain plate with hand-painted rose and daisy wreath: front, and base with maker's mark",
+    "expected": {
+      "denominacao": "Prato",
+      "classificacao": "Objetos e equipamentos de serviço de alimentos",
+      "classe": "Objetos domésticos",
+      "data_producao": null,
+      "inscricoes": "Z.S. & Co. / BAVARIA",
+      "notes": "View 2 shows the printed mark 'Z.S. & Co. Bavaria' and the museum label '72.1.40' (label is not an inscription). A good answer reports the mark as a maker's mark (may say porcelain from Bavaria) but does not invent a date. 'Prato decorativo' is defensible (one uploader calls it 'Prato de decoração'); the museum record just says 'Prato'.",
+      "denominacao_alternativas": [
+        "Prato decorativo"
+      ]
+    },
+    "museum_record": "Museu do Colono 72.1.40: white porcelain plate with a blue line on the rim and large flowers painted in blue, orange, yellow, green and pink around the plate.",
+    "source": [
+      {
+        "title": "File:Prato, Museu do Colono (72.1.40) (001).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Prato,_Museu_do_Colono_(72.1.40)_(001).jpg",
+        "credit": "Museu do Colono / Midiateca Capixaba",
+        "license": "CC BY-SA 4.0"
+      },
+      {
+        "title": "File:Prato de decoração (1.1) (fundo), Acervo do Museu do Colono (Santa Leopoldina).jpg",
+        "url": "https://commons.wikimedia.org/wiki/File:Prato_de_decora%C3%A7%C3%A3o_(1.1)_(fundo),_Acervo_do_Museu_do_Colono_(Santa_Leopoldina).jpg",
+        "credit": "RDeminicis (Wikimedia Brasil), object of the Museu do Colono",
+        "license": "CC BY-SA 4.0"
+      }
+    ],
+    "multi_view_gain": "Only view 2 (base) shows the manufacturer's mark Z.S. & Co. Bavaria, i.e. the origin of the porcelain; view 1 has no text at all."
+  }
+]
