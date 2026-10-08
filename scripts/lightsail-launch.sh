@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Paste into Lightsail "Launch script" (Ubuntu 24.04). Edit DOMAIN/EMAIL first.
-# DOMAIN: your hostname (HTTPS auto) or ":80" for plain HTTP on the IP.
-DOMAIN=":80"
+# DOMAIN: your hostname, or "auto" for a free temporary https://<ip>.sslip.io name.
+DOMAIN="auto"
 EMAIL="pedro.valente@gmail.com"
 set -euxo pipefail
 curl -fsSL https://get.docker.com | sh
 git clone https://github.com/pvalente/museu.git /opt/museu
 cd /opt/museu
 IP=$(curl -s http://checkip.amazonaws.com)
-if [ "$DOMAIN" = ":80" ]; then HOME_URL="http://$IP"; else HOME_URL="https://$DOMAIN"; fi
+if [ "$DOMAIN" = "auto" ]; then DOMAIN="$(echo $IP | tr . -).sslip.io"; fi
+HOME_URL="https://$DOMAIN"
 cat > .env <<ENV
 DOMAIN=$DOMAIN
 WP_DB_NAME=museu

@@ -18,3 +18,6 @@
 6. **Updates**: `git pull && docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`; update plugins via wp-admin or `docker compose exec --user www-data wordpress wp plugin update --all`.
 
 Tip: for lots of high-res images, add a Lightsail block-storage disk or offload media to S3.
+
+## No domain yet: temporary URL
+`DOMAIN="auto"` in `scripts/lightsail-launch.sh` uses a free `<ip-with-dashes>.sslip.io` name with real HTTPS. Attach the static IP right after creating the instance, then on the server run `sudo /opt/museu/scripts/set-domain.sh` to switch to the final IP. When you get a real domain: `sudo /opt/museu/scripts/set-domain.sh museu.example.com`.
