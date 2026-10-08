@@ -21,9 +21,14 @@ wp tesauro import "Denominação (Tesauro de Objetos)"
 ```
 
 The target taxonomy must already exist in Tainacan. Re-running is safe: terms are matched by their stable
-thesaurus id (term meta `tesauro_id`) and updated in place. Each term gets the thesaurus definition as its
-description and its non-preferred synonyms as `tesauro_alt_label` term meta (e.g. *Escudela* → *Tigela*),
-for lookups.
+thesaurus id (term meta `tesauro_id`) and updated in place. Each term gets its non-preferred synonyms as `tesauro_alt_label` term meta (e.g. *Escudela* → *Tigela*) and
+its definition as `tesauro_scope_note` term meta, for matching. Neither is served by Tainacan's public API.
+Definitions only go into the public term description with `--public-definitions`, which needs the author's
+permission ("Copyright © 2016 Helena Dodd Ferrez. Todos os direitos reservados"; partial reproduction with
+citation only).
+
+`data/.htaccess` denies web access to the compiled file on Apache. On nginx, add an equivalent `deny` rule
+for `wp-content/plugins/tesauro-museus/data/`.
 
 ## Data
 

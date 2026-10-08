@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 const TERM_META_ID  = 'tesauro_id';
 const TERM_META_ALT = 'tesauro_alt_label';
+const TERM_META_DEF = 'tesauro_scope_note';
 
 /**
  * Imports thesaurus terms (data/*.json, built by tools/build.py) into an existing Tainacan taxonomy.
@@ -24,9 +25,12 @@ const TERM_META_ALT = 'tesauro_alt_label';
  * @param string   $file      Path to the compiled thesaurus JSON.
  * @param string   $taxonomy  WordPress taxonomy name of the Tainacan taxonomy (e.g. tnc_tax_95).
  * @param int|null $max_level Deepest level to import (0 = classes, 1 = subclasses); null imports everything.
+ * @param bool     $public_definitions Also put definitions in the term description, which Tainacan serves publicly.
+ *                                     Off by default: the source only permits partial reproduction. Definitions
+ *                                     are always kept in private term meta for matching.
  * @return array{created:int, updated:int}
  */
-function import( string $file, string $taxonomy, ?int $max_level = null ): array {
+function import( string $file, string $taxonomy, ?int $max_level = null, bool $public_definitions = false ): array {
 	$data = json_decode( (string) file_get_contents( $file ), true );
 	if ( ! isset( $data['terms'] ) ) {
 		throw new \RuntimeException( "Not a thesaurus file: $file" );
@@ -49,7 +53,7 @@ function import( string $file, string $taxonomy, ?int $max_level = null ): array
 		}
 		$parent = $t['parent'] ? ( $wp_ids[ $t['parent'] ] ?? 0 ) : 0;
 		$args   = [
-			'description' => (string) ( $t['scope_note'] ?? '' ),
+			'description' => $public_definitions ? (string) ( $t['scope_note'] ?? '' ) : '',
 			'parent'      => $parent,
 			'slug'        => $t['id'],
 		];
@@ -66,6 +70,7 @@ function import( string $file, string $taxonomy, ?int $max_level = null ): array
 			update_term_meta( $term_id, TERM_META_ID, $t['id'] );
 			++$stats['created'];
 		}
+		update_term_meta( $term_id, TERM_META_DEF, (string) ( $t['scope_note'] ?? '' ) );
 		delete_term_meta( $term_id, TERM_META_ALT );
 		foreach ( $t['alt_labels'] as $alt ) {
 			add_term_meta( $term_id, TERM_META_ALT, $alt );
@@ -90,6 +95,9 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	 * [--max-level=<level>]
 	 * : Deepest level to import: 0 = classes, 1 = subclasses. Default: all levels.
 	 *
+	 * [--public-definitions]
+	 * : Also show definitions as term descriptions (public in Tainacan). Only with the author's permission.
+	 *
 	 * ## EXAMPLES
 	 *
 	 *     wp tesauro import "Classificação (Tesauro de Objetos)" --max-level=1
@@ -107,7 +115,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				\WP_CLI::error( "Tainacan taxonomy not found: {$args[0]}" );
 			}
 			$max   = isset( $assoc['max-level'] ) ? (int) $assoc['max-level'] : null;
-			$stats = import( $file, $tax->get_db_identifier(), $max );
+			$stats = import( $file, $tax->get_db_identifier(), $max, isset( $assoc['public-definitions'] ) );
 			\WP_CLI::success( sprintf( '%s: %d created, %d updated.', $tax->get_name(), $stats['created'], $stats['updated'] ) );
 		}
 	);
