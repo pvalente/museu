@@ -4,6 +4,8 @@
 DOMAIN="auto"
 EMAIL="pedro.valente@gmail.com"
 set -euxo pipefail
+# Give the static IP time to be attached before we read the public IP.
+[ "$DOMAIN" = "auto" ] && sleep 120
 curl -fsSL https://get.docker.com | sh
 git clone https://github.com/pvalente/museu.git /opt/museu
 cd /opt/museu
