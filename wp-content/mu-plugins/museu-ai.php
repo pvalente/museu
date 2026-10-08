@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Museu AI fixes
- * Description: Makes Tainacan AI send images inline (base64) instead of as public URLs.
+ * Description: Makes Tainacan AI send images inline (base64) instead of as public URLs, and prefer Sonnet 5.5.
  */
 
 // Tainacan AI 0.2.0 sends an image's URL instead of its bytes when a HEAD request to it returns 200,
@@ -14,3 +14,8 @@ add_filter( 'pre_http_request', function ( $response, $args, $url ) {
 	}
 	return $response;
 }, 10, 3 );
+
+// Image analysis: prefer Claude Sonnet 5.5; the AI plugin's own list (Sonnet 5 first) stays as fallback.
+add_filter( 'wpai_preferred_vision_models', function ( $models ) {
+	return array_merge( array( array( 'anthropic', 'claude-sonnet-5-5' ) ), $models );
+} );
