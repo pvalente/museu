@@ -25,7 +25,10 @@ services:
       WORDPRESS_DB_NAME: ${WP_DB_NAME}
       WORDPRESS_DB_USER: ${WP_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
+      # Resend API key for FluentSMTP (key_store = wp_config); lives only in .env.
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       WORDPRESS_CONFIG_EXTRA: |
+        if (getenv('SMTP_PASSWORD')) { define('FLUENTMAIL_SMTP_USERNAME', 'resend'); define('FLUENTMAIL_SMTP_PASSWORD', getenv('SMTP_PASSWORD')); }
         define('WP_HOME', '${WP_HOME}');
         define('WP_SITEURL', '${WP_HOME}');
         define('DISALLOW_FILE_EDIT', true);
