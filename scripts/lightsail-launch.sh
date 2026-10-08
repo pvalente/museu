@@ -3,7 +3,8 @@
 # DOMAIN: your hostname, or "auto" for a free temporary https://<ip>.sslip.io name.
 DOMAIN="auto"
 EMAIL="pedro.valente@gmail.com"
-set -euxo pipefail
+# Lightsail runs this under /bin/sh (dash), ignoring the shebang, so stay POSIX: no pipefail.
+set -eux
 # Give the static IP time to be attached before we read the public IP.
 [ "$DOMAIN" = "auto" ] && sleep 120
 curl -fsSL https://get.docker.com | sh

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Creates the Lightsail instance, static IP and firewall rules with the AWS CLI.
 # Requires an authenticated CLI (aws configure / aws sso login).
-# Usage: scripts/lightsail-create.sh [region] [bundle]   e.g. sa-east-1 small_3_0
+# Usage: scripts/lightsail-create.sh [region] [bundle]   e.g. sa-east-1 small_3_1
 set -euo pipefail
 cd "$(dirname "$0")/.."
-REGION="${1:-sa-east-1}"; BUNDLE="${2:-small_3_0}"   # small_3_0 = 2 GB RAM
+REGION="${1:-sa-east-1}"; BUNDLE="${2:-small_3_1}"   # small_3_1 = 2 GB RAM, 2 vCPU, 60 GB
 NAME=museu
 export AWS_DEFAULT_REGION="$REGION"
 
