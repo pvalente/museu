@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-# Runs the Tainacan AI eval on the live server: applies prompt/ to the site, uploads images/ as temporary
-# media (titled e1..e8), analyzes each against collection 6's fields, then deletes the uploads.
+# Runs the Tainacan AI eval on the live server: applies prompt/preamble.txt and the collection blueprint
+# (field guidance) to the site, uploads images/ as temporary media (titled e1..e8), analyzes each against
+# the blueprint's collection, then deletes the uploads.
 # Usage: AWS_PROFILE=museu eval/tainacan-ai/run.sh <label>   -> writes results/<date>-<label>.md
 set -euo pipefail
 DIR=$(cd "$(dirname "$0")" && pwd)
 LABEL=${1:?usage: run.sh <label>}
 HOST=ubuntu@15.229.74.37
 OUT="$DIR/results/$(date +%F)-$LABEL.md"
+BLUEPRINT="$DIR/../../scripts/tainacan/inbcm-museologico.json"
 
 # Short-lived SSH certificate from Lightsail.
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
@@ -21,6 +23,7 @@ SSH_OPTS=(-i "$TMP/key" -o CertificateFile="$TMP/key-cert.pub" -o UserKnownHosts
 
 ssh "${SSH_OPTS[@]}" "$HOST" 'rm -rf /tmp/tainacan-ai-eval && mkdir /tmp/tainacan-ai-eval'
 scp -q "${SSH_OPTS[@]}" -r "$DIR/images" "$DIR/prompt" "$DIR/php" "$HOST:/tmp/tainacan-ai-eval/"
+scp -q "${SSH_OPTS[@]}" "$BLUEPRINT" "$DIR/../../scripts/tainacan/apply-blueprint.php" "$HOST:/tmp/tainacan-ai-eval/php/"
 
 ssh "${SSH_OPTS[@]}" "$HOST" bash -s > "$OUT" <<'REMOTE'
 set -e
@@ -29,12 +32,13 @@ cd /opt/museu
 WP() { sudo docker compose exec -T --user www-data wordpress wp "$@" </dev/null; }
 X=/tmp/tainacan-ai-eval
 sudo docker compose cp $X wordpress:/tmp/ >/dev/null 2>&1
-WP eval-file $X/php/apply.php $X/prompt/preamble.txt $X/prompt/fields.json 2>/dev/null
+WP eval-file $X/php/apply.php $X/prompt/preamble.txt 2>/dev/null
+WP eval-file $X/php/apply-blueprint.php $X/php/inbcm-museologico.json 2>/dev/null | tail -1
 IDS=""
 for f in $(ls $X/images/*.jpg | sort); do
   IDS="$IDS $(WP media import "$f" --title="$(basename "$f" .jpg)" --porcelain 2>/dev/null)"
 done
-WP eval-file $X/php/run.php $IDS 2>/dev/null
+WP eval-file $X/php/run.php $X/php/inbcm-museologico.json $IDS 2>/dev/null
 WP post delete $IDS --force >/dev/null 2>&1
 sudo docker compose exec -T wordpress rm -rf $X </dev/null
 rm -rf $X

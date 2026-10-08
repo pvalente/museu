@@ -1,13 +1,8 @@
 <?php
-// Applies the eval prompt to the live site: Tainacan AI default preamble + field guidance.
-// Usage: wp eval-file apply.php <preamble.txt> <fields.json>
-[$pfile, $ffile] = $args;
+// Applies the eval preamble to the live site (Tainacan AI default preamble). Field guidance comes from the
+// collection blueprint (scripts/tainacan/*.json), applied separately by apply-blueprint.php.
+// Usage: wp eval-file apply.php <preamble.txt>
 $o = get_option('tainacan_ai_options', []);
-$o['default_preamble'] = file_get_contents($pfile);
+$o['default_preamble'] = file_get_contents($args[0]);
 update_option('tainacan_ai_options', $o);
-$repo = \Tainacan\Repositories\Metadata::get_instance();
-foreach (json_decode(file_get_contents($ffile), true) as $id => [$desc, $ph]) {
-  $m = $repo->fetch((int) $id); $m->set_description($desc); $m->set_placeholder($ph);
-  if ($m->validate()) $repo->update($m); else print_r($m->get_errors());
-}
-echo "applied ", basename($pfile), " (", mb_strlen($o['default_preamble']), " chars)\n";
+echo "applied ", basename($args[0]), " (", mb_strlen($o['default_preamble']), " chars)\n";

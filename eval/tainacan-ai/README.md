@@ -9,8 +9,8 @@ before relying on it: run all cases, read the results, compare against the expec
 |---|---|
 | `images/` | The 8 test photos (`e1`–`e8`), resized to ~1600 px. Credits below. |
 | `prompt/preamble.txt` | The site-wide preamble (Tainacan → AI Tools → Default prompt preamble). **This is what's live.** |
-| `prompt/fields.json` | Guidance per metadata field: `{ "<metadatum id>": ["description", "placeholder"] }`. IDs are collection 6 ("Museu da minha casa"): 9 = Título, 11 = Descrição. |
-| `prompt/history/` | Earlier prompt versions. |
+| `../../scripts/tainacan/inbcm-museologico.json` | The collection the eval runs against ("Acervo Museológico", INBCM) **and its per-field AI guidance** (each field's `description`/`placeholder`). One source of truth: the eval applies this same blueprint. |
+| `prompt/history/` | Earlier prompt versions (v1–v2 field guidance was for the old 2-field test collection). |
 | `results/` | Output of each run, named `<date>-<label>.md`. |
 | `php/` | WP-CLI scripts the runner uses: `apply.php` sets the prompt, `run.php` runs the analysis. |
 | `run.sh` | Runs the whole eval on the server. |
@@ -21,16 +21,14 @@ before relying on it: run all cases, read the results, compare against the expec
 AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change
 ```
 
-This **applies `prompt/` to the live site** (it tests the real pipeline: WordPress AI → Tainacan AI → Anthropic),
+This **applies `prompt/preamble.txt` and the collection blueprint to the live site** (it tests the real pipeline: WordPress AI → Tainacan AI → Anthropic),
 uploads the images as temporary media titled `e1`…`e8` (neutral names so filenames don't hint the answer),
-analyzes each one against collection 6's fields, deletes the uploads, and writes `results/<date>-my-change.md`.
-A run takes about 2 minutes and costs roughly US$0.25 (~7k tokens per image on Claude Sonnet 5.5).
+analyzes each one against the blueprint's collection, deletes the uploads, and writes `results/<date>-my-change.md`.
+A run takes about 2–3 minutes and costs roughly US$0.35 (~9k tokens per image on Claude Sonnet 5.5 with the 12 INBCM fields).
 
-To try a change: edit `prompt/`, run, read the results against the checklist, and commit the prompt together with
-its results file. To roll back, check out the previous `prompt/` and run again.
-
-Field descriptions also count as prompt. If the collection's fields change (new fields, different IDs), update
-`fields.json` and `php/run.php` (collection ID) to match.
+To try a change: edit `prompt/preamble.txt` or a field's `description` in the blueprint, run, read the results
+against the checklist, and commit the change together with its results file. To roll back, check out the previous
+version and run again.
 
 ## Cases and what a good answer looks like
 
@@ -44,6 +42,22 @@ Field descriptions also count as prompt. If the collection's fields change (new 
 | e6 | Ex-voto painting with long abbreviated caption, 1766 | Museu Histórico Nacional | Dense scene, 18th-c. abbreviations, religious | Literal transcription keeping "gravem.te", "Senr.a", "DEOS"; no "estilo colonial"; dates only from the caption |
 | e7 | Painted ceramic bowl | Museu Nacional/UFRJ (Marajoara collection) | Strong style cues | **No** cultural attribution (it once guessed "Shipibo-Konibo") |
 | e8 | Back of the e2 note: ink showing through, mirrored | Museu do Colono 2022.370 (back) | Mirrored text | Says the writing is mirrored show-through and does **not** transcribe or invent it |
+
+Expected values for the INBCM fields (✓ = what a good run gives):
+
+| # | Data de Produção | Autor / Local / Dimensões | Material/Técnica | Estado |
+|---|---|---|---|---|
+| e1 | null | null | Madeira, Entalhe, Pintura | Bom or Regular |
+| e2 | 24-12-1914 | null (the printed "Villa de Santa Thereza" is the card's printer, not a production place; null is fine) | Papel, Escrita manual, Impressão | Regular |
+| e3 | 26/9/03 | null | Metal, Gravação | Bom |
+| e4 | null | null | Metal, Gravação (not Marfim: only "aparentemente") | any |
+| e5 | null | null | Fibra vegetal (+ Trançado) | Regular |
+| e6 | 1766 | null | Madeira, Pintura, Escrita manual | Regular |
+| e7 | null | null | Cerâmica, Pintura | Regular |
+| e8 | null (the date is mirrored, not transcribed) | null | Papel, Escrita manual | Regular |
+
+Administrative fields (Nº de Registro, Outros Números, Situação, Condições de Reprodução) are excluded from AI.
+Denominação and Classificação come from the Ferrez thesaurus; until it is imported they stay null.
 
 Checks that apply to every case:
 - pt-BR spelling ("umidade", "marrom"; not "humidade", "castanho").
@@ -62,6 +76,7 @@ Checks that apply to every case:
 | `v1` | With the fix, rules work. Left: e6 hit the 2,000-token limit (now enforced), the faint printed name on e2 was mistaken for show-through, titles too generic. |
 | `v2` | All 8 pass. Clarified mirror vs. faint print, titles may use the inscription, `max_tokens` raised to 4,000. |
 | `v2-rerun` | Same results on a second run. e6's description runs ~105 words (dense scene); acceptable. |
+| `inbcm-v2` | First run on the INBCM collection (same preamble). Título/Descrição as good as before. Data de Produção taken only from inscriptions (1914, 03, 1766) and null otherwise; Autor, Local, Dimensões correctly null everywhere; Material/Técnica sensible. One miss: e4 tags "Marfim" although the description only says "aparentemente de marfim" — tags can't hedge. Denominação/Classificação null (taxonomies still empty). |
 
 Known limits: e4's monogram isn't read (fine; it's honest about it), and the ` / ` line breaks follow the AI's
 reading of the layout, so check them on long texts.
