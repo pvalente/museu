@@ -16,7 +16,23 @@ $WP language core install pt_BR --activate || true
 $WP rewrite structure '/%postname%/' --hard
 $WP plugin install tainacan --activate
 $WP theme install tainacan-interface --activate || true
+# Drop bundled extras we don't use; keep the newest default theme as a fallback.
+$WP plugin delete akismet hello 2>/dev/null || true
+$WP theme delete twentytwentythree twentytwentyfour 2>/dev/null || true
 # Core pt_BR doesn't cover plugins/themes; fetch their translations too.
 $WP language plugin install --all pt_BR || true
 $WP language theme install --all pt_BR || true
+# Brazilian time and dates ("8 de outubro de 2026").
+$WP option update timezone_string America/Sao_Paulo
+$WP option update date_format 'j \d\e F \d\e Y'
+$WP option update time_format 'H:i'
+# A catalogue, not a blog: no comments or pingbacks.
+$WP option update default_comment_status closed
+$WP option update default_ping_status closed
+# Plugins/themes update themselves; major core versions stay manual (minor/security stay automatic).
+$WP plugin auto-updates enable --all
+$WP theme auto-updates enable --all
+$WP option update auto_update_core_major disabled
+# Keep temporary sslip.io hostnames out of search engines; set-domain.sh turns indexing on for a real domain.
+case "$WP_HOME" in *sslip.io*|*localhost*) $WP option update blog_public 0 ;; *) $WP option update blog_public 1 ;; esac
 echo "Done. Open $WP_HOME/wp-admin -> Tainacan to create your first collection."

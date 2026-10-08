@@ -15,4 +15,7 @@ $COMPOSE up -d
 sleep 5
 $COMPOSE exec -T --user www-data wordpress wp search-replace "$OLD" "$NEW" --all-tables --skip-columns=guid || true
 $COMPOSE exec -T --user www-data wordpress wp search-replace "http://$NEW" "https://$NEW" --all-tables --skip-columns=guid || true
+# Only let search engines index a real domain, not a temporary sslip.io name.
+case "$NEW" in *sslip.io) PUBLIC=0 ;; *) PUBLIC=1 ;; esac
+$COMPOSE exec -T --user www-data wordpress wp option update blog_public "$PUBLIC"
 echo "Site: https://$NEW/wp-admin"

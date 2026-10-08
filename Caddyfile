@@ -1,5 +1,7 @@
 # Production reverse proxy with automatic HTTPS (Let's Encrypt).
 {$DOMAIN} {
 	encode zstd gzip
+	# XML-RPC is mostly used for password brute-forcing; Tainacan doesn't need it.
+	respond /xmlrpc.php 403
 	reverse_proxy wordpress:80
 }

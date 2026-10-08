@@ -7,6 +7,11 @@ EMAIL="pedro.valente@gmail.com"
 set -eux
 # Give the static IP time to be attached before we read the public IP.
 [ "$DOMAIN" = "auto" ] && sleep 120
+# 2 GB swap: the 2 GB instance can run out of memory resizing large scans.
+if [ ! -f /swapfile ]; then
+  fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
+  echo '/swapfile none swap sw 0 0' >> /etc/fstab
+fi
 curl -fsSL https://get.docker.com | sh
 git clone https://github.com/pvalente/museu.git /opt/museu
 cd /opt/museu

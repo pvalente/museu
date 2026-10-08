@@ -1,4 +1,4 @@
-FROM wordpress:6-php8.3-apache
+FROM wordpress:7-php8.3-apache
 
 # Tainacan needs imagick/gd for thumbnails of museum images. The base image already
 # ships and enables imagick; ghostscript adds PDF thumbnails.
