@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Museu AI fixes
- * Description: Works around Tainacan AI 0.2.0 bugs (images sent as URLs, system prompt dropped) and prefers Sonnet 5.5.
+ * Description: Works around Tainacan AI 0.2.0 bugs (images sent as URLs, system prompt dropped), downscales images sent for analysis, prefers Sonnet 5.5.
  */
 
 // Tainacan AI 0.2.0 sends an image's URL instead of its bytes when a HEAD request to it returns 200,
@@ -36,6 +36,51 @@ add_action( 'wp_ai_client_before_generate_result', function ( $event ) {
 	$max_tokens = (int) ( get_option( 'tainacan_ai_options' )['max_tokens'] ?? 0 );
 	if ( $max_tokens > 0 && ! $config->getMaxTokens() ) {
 		$config->setMaxTokens( $max_tokens );
+	}
+} );
+
+// Downscale images before they're sent for analysis: the image is a large share of each request's tokens, and
+// detail beyond what the model needs is paid for and thrown away. Tainacan AI reads the file through
+// get_attached_file(), so during an analyze request that returns a cached copy whose long edge is at most
+// museu_ai_image_max_edge px (option, or the filter of the same name). 0 = send the original.
+add_filter( 'rest_request_before_callbacks', function ( $response, $handler, $request ) {
+	if ( '/tainacan-ai/v1/analyze' === $request->get_route() ) {
+		$GLOBALS['museu_ai_analyzing'] = true;
+	}
+	return $response;
+}, 10, 3 );
+add_filter( 'rest_request_after_callbacks', function ( $response ) {
+	unset( $GLOBALS['museu_ai_analyzing'] );
+	return $response;
+} );
+add_filter( 'get_attached_file', function ( $file, $attachment_id ) {
+	$max = (int) apply_filters( 'museu_ai_image_max_edge', (int) get_option( 'museu_ai_image_max_edge', 0 ) );
+	// Check the MIME type directly: wp_attachment_is_image() calls get_attached_file() and would recurse
+	// into this filter forever (under wp-cli's unlimited memory_limit that looks like a hang).
+	if ( empty( $GLOBALS['museu_ai_analyzing'] ) || $max <= 0 || ! $file
+		|| ! str_starts_with( (string) get_post_mime_type( $attachment_id ), 'image/' ) ) {
+		return $file;
+	}
+	$size = @wp_getimagesize( $file );
+	if ( ! $size || max( $size[0], $size[1] ) <= $max ) {
+		return $file;
+	}
+	$small = preg_replace( '/(\.[^.\/]+)$/', "-ai{$max}$1", $file );
+	if ( ! file_exists( $small ) ) {
+		$editor = wp_get_image_editor( $file );
+		if ( is_wp_error( $editor ) || is_wp_error( $editor->resize( $max, $max ) ) || is_wp_error( $editor->save( $small ) ) ) {
+			return $file;
+		}
+	}
+	return $small;
+}, 10, 2 );
+// Remove the downscaled copies with their attachment.
+add_action( 'delete_attachment', function ( $attachment_id ) {
+	$file = get_attached_file( $attachment_id, true );
+	if ( $file ) {
+		foreach ( glob( preg_replace( '/(\.[^.\/]+)$/', '-ai*$1', $file ) ) ?: [] as $copy ) {
+			wp_delete_file( $copy );
+		}
 	}
 } );
 
