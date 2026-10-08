@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Museu AI fixes
- * Description: Works around Tainacan AI 0.2.0 bugs (images sent as URLs, system prompt dropped), downscales images sent for analysis, prefers Sonnet 5.5.
+ * Description: Works around Tainacan AI 0.2.0 bugs (images sent as URLs, system prompt dropped), caches the system prompt, downscales images sent for analysis, prefers Sonnet 5.5.
  */
 
 // Tainacan AI 0.2.0 sends an image's URL instead of its bytes when a HEAD request to it returns 200,
@@ -29,8 +29,19 @@ add_action( 'wp_ai_client_before_generate_result', function ( $event ) {
 		return;
 	}
 	unset( $GLOBALS['museu_ai_system_prompt'] );
-	$config = $event->getModel()->getConfig();
-	if ( ! $config->getSystemInstruction() ) {
+	$model  = $event->getModel();
+	$config = $model->getConfig();
+	if ( 'anthropic' === $model->providerMetadata()->getId() ) {
+		// Prompt caching: the system prompt (~4k tokens) is the same for every item in a collection, but the
+		// provider sends it as a bare string with no cache breakpoint. It only adds `system` when the instruction
+		// is non-empty, so clear that and send `system` as a custom option: a text block with cache_control.
+		$config->setCustomOption( 'system', array( array(
+			'type'          => 'text',
+			'text'          => $config->getSystemInstruction() ?: $prompt,
+			'cache_control' => array( 'type' => 'ephemeral' ),
+		) ) );
+		$config->setSystemInstruction( '' );
+	} elseif ( ! $config->getSystemInstruction() ) {
 		$config->setSystemInstruction( $prompt );
 	}
 	$max_tokens = (int) ( get_option( 'tainacan_ai_options' )['max_tokens'] ?? 0 );

@@ -63,3 +63,13 @@ Improvements, in priority order:
 5. Small: collection name/description as context; keep EXIF out of the prompt.
 
 All of these must follow the rules above: optional new REST params with today's single-image behaviour as default, WP 7.0+ and PHP 8.0 compatible.
+
+## Prompt caching (2026-10-08)
+
+The Anthropic connector (1.0.5) sends `system` as a bare string, so nothing is ever cached
+([WordPress/ai-provider-for-anthropic#33](https://github.com/WordPress/ai-provider-for-anthropic/issues/33); that
+issue says it can't be done downstream, but it can). `museu-ai.php` clears the system instruction and passes `system`
+as a custom option, a text block with `cache_control: ephemeral` (5-min TTL). Measured on the INBCM collection: the
+first item writes 3,801 tokens, later items (any image, same collection) read them; uncached input drops to ~2.5k.
+Input cost per item ~$0.0127 → ~$0.0055 (−57%). The connector sums cache reads/writes into input tokens, so
+`getPromptTokens()` overstates cost; read `usage` from the raw response (`http_response` filter) to see the split.
