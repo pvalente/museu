@@ -1,0 +1,5 @@
+# The source only permits partial reproduction ("Reprodução parcial permitida
+# desde que citada a fonte"). Do not commit the compiled full thesaurus until
+# permission is clarified; rebuild it locally with tools/build.py.
+data/*.json
+__pycache__/
