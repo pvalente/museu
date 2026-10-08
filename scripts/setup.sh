@@ -21,6 +21,12 @@ $WP plugin install tainacan-blocksy --activate
 # Outgoing email: the image has no MTA and AWS blocks port 25. Configure in Settings -> FluentSMTP
 # (Resend: smtp.resend.com:587 TLS, user "resend", password = Resend API key).
 $WP plugin install fluent-smtp --activate
+# AI metadata suggestions: WordPress AI (API keys go in Settings -> Connectors, never in git) + Tainacan AI.
+# Tainacan AI isn't on wordpress.org, so it's pinned to a GitHub release and updated by hand.
+$WP plugin install ai --activate
+$WP plugin is-installed tainacan-ai ||
+  $WP plugin install https://github.com/tainacan/tainacan-ai/releases/download/0.2.0/tainacan-ai.zip
+$WP plugin activate tainacan-ai
 # Drop bundled extras we don't use; keep the newest default theme as a fallback.
 $WP plugin delete akismet hello 2>/dev/null || true
 $WP theme delete twentytwentythree twentytwentyfour 2>/dev/null || true
