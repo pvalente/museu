@@ -804,6 +804,9 @@ def build(pdf_path, out_path, report_path=None, strict=False):
             "label": n["out_label"],
             "parent": nodes[n["parent"]]["id"] if n["parent"] is not None else None,
             "level": len(n["path"]) - 1,
+            # From the printed asterisks: * class, ** subclass, *** and deeper term. Classes 14-16
+            # have no subclasses, so their terms sit at level 1 too; use kind, not level.
+            "kind": {1: "class", 2: "subclass"}.get(n["depth"], "term"),
             "path": n["path"],
             "alt_labels": sorted(alts, key=lambda s: (loose_key(s), s)),
             # NA is the definition; ~20 entries carry their definition in NE

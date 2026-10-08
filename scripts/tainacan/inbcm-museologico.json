@@ -21,77 +21,157 @@
       "description": "Materiais e técnicas de fabricação. Lista inicial; novos termos podem ser criados na catalogação.",
       "allow_insert": "yes",
       "terms": {
-        "Materiais": ["Cerâmica", "Couro", "Fibra vegetal", "Madeira", "Marfim", "Metal", "Osso", "Papel", "Pedra", "Plástico", "Porcelana", "Tecido", "Vidro"],
-        "Técnicas": ["Bordado", "Entalhe", "Escrita manual", "Fundição", "Gravação", "Impressão", "Modelagem", "Pintura", "Tecelagem", "Torneado", "Trançado"]
+        "Materiais": [
+          "Cerâmica",
+          "Couro",
+          "Fibra vegetal",
+          "Madeira",
+          "Marfim",
+          "Metal",
+          "Osso",
+          "Papel",
+          "Pedra",
+          "Plástico",
+          "Porcelana",
+          "Tecido",
+          "Vidro"
+        ],
+        "Técnicas": [
+          "Bordado",
+          "Entalhe",
+          "Escrita manual",
+          "Fundição",
+          "Gravação",
+          "Impressão",
+          "Modelagem",
+          "Pintura",
+          "Tecelagem",
+          "Torneado",
+          "Trançado"
+        ]
       }
     }
   },
   "fields": [
     {
-      "inbcm": "inbcm:numRegistro", "name": "Nº de Registro", "type": "Text",
+      "inbcm": "inbcm:numRegistro",
+      "name": "Nº de Registro",
+      "type": "Text",
       "description": "Número de registro do objeto no inventário do museu.",
       "ai_exclude": true
     },
     {
-      "inbcm": "inbcm:outrosNum", "name": "Outros Números", "type": "Text", "multiple": true,
+      "inbcm": "inbcm:outrosNum",
+      "name": "Outros Números",
+      "type": "Text",
+      "multiple": true,
       "description": "Números anteriores ou de outras instituições, com a origem de cada um.",
       "ai_exclude": true
     },
     {
-      "inbcm": "inbcm:situacao", "name": "Situação", "type": "Selectbox",
-      "options": { "options": ["Localizado", "Não localizado", "Excluído"] },
+      "inbcm": "inbcm:situacao",
+      "name": "Situação",
+      "type": "Selectbox",
+      "options": {
+        "options": [
+          "Localizado",
+          "Não localizado",
+          "Excluído"
+        ]
+      },
       "description": "Situação do objeto no inventário.",
       "ai_exclude": true
     },
     {
-      "inbcm": "inbcm:denominacao", "name": "Denominação", "type": "Taxonomy", "taxonomy": "denominacao",
-      "options": { "allow_new_terms": "yes", "input_type": "tainacan-taxonomy-radio" },
-      "description": "Nome do objeto, no singular, como no Tesauro de Objetos (ex.: Bule, Cesto, Ex-voto, Bilhete). Só o nome, sem material nem decoração."
+      "inbcm": "inbcm:denominacao",
+      "name": "Denominação",
+      "type": "Taxonomy",
+      "taxonomy": "denominacao",
+      "options": {
+        "allow_new_terms": "yes",
+        "input_type": "tainacan-taxonomy-radio"
+      },
+      "description": "Nome do objeto como em catálogos de museus brasileiros: o substantivo no singular, com o qualificativo que define o tipo quando houver tipos diferentes (ex.: \"Placa comemorativa\", não \"Placa\"; \"Cesta\", \"Tigela\", \"Ex-voto\", \"Escultura\"). Sem material, cor, decoração ou tema. Sempre sugira um nome, mesmo que não esteja na lista; ele será conferido com o Tesauro de Objetos."
     },
     {
-      "inbcm": "inbcm:titulo", "core": "title",
+      "inbcm": "inbcm:titulo",
+      "core": "title",
       "description": "Nome do objeto + o que mais o identifica, até 70 caracteres, sem ponto final e sem artigo no início. Se o texto inscrito disser a função, a ocasião ou o homenageado, use isso (ex.: \"Bilhete manuscrito de boas festas\", \"Placa gravada de homenagem a Santos Dumont\", \"Pintura votiva com legenda manuscrita\"). Caso contrário, use uma característica física (ex.: \"Bule de metal prateado com monograma gravado\"). Nunca inclua datas, locais, estilos ou culturas.",
       "placeholder": "Ex.: Bule de metal prateado com monograma gravado"
     },
     {
-      "inbcm": "inbcm:autor", "name": "Autor", "type": "Text", "multiple": true,
+      "inbcm": "inbcm:autor",
+      "name": "Autor",
+      "type": "Text",
+      "multiple": true,
       "description": "Autor, fabricante ou oficina. Preencha só se houver assinatura, marca ou carimbo legível no objeto; transcreva como está escrito. Caso contrário, null."
     },
     {
-      "inbcm": "inbcm:classificacao", "name": "Classificação", "type": "Taxonomy", "taxonomy": "classificacao",
-      "options": { "allow_new_terms": "no", "input_type": "tainacan-taxonomy-radio" },
-      "description": "Classe ou subclasse do Tesauro de Objetos a que o objeto pertence, pela sua função (ex.: utensílio de cozinha, objeto de culto)."
+      "inbcm": "inbcm:classificacao",
+      "name": "Classificação",
+      "type": "Taxonomy",
+      "taxonomy": "classificacao",
+      "options": {
+        "allow_new_terms": "no",
+        "input_type": "tainacan-taxonomy-radio"
+      },
+      "description": "Classe ou subclasse do Tesauro de Objetos. Preenchida automaticamente a partir da Denominação.",
+      "ai_exclude": true
     },
     {
-      "inbcm": "inbcm:resumoDes", "core": "description",
+      "inbcm": "inbcm:resumoDes",
+      "core": "description",
       "description": "No máximo 5 frases e 90 palavras, no presente, só sobre o objeto: tipo, forma, material e técnica aparentes, cores, decoração e danos visíveis. Se houver texto no objeto, acrescente depois um parágrafo começando com \"Inscrições:\", com a localização e a transcrição literal entre aspas (ex.: Inscrições: manuscrito, ao centro: \"Ao bondoso amigo / Lula\"; impresso, canto inferior esquerdo: \"Villa de Santa Thereza\")."
     },
     {
-      "inbcm": "inbcm:dimensoes", "name": "Dimensões", "type": "Text",
+      "inbcm": "inbcm:dimensoes",
+      "name": "Dimensões",
+      "type": "Text",
       "description": "Altura x largura x profundidade em cm. Preencha só se houver régua ou escala visível na foto; caso contrário, null.",
       "placeholder": "Ex.: 18,5 x 24 x 12 cm"
     },
     {
-      "inbcm": "inbcm:matTecnica", "name": "Material/Técnica", "type": "Taxonomy", "taxonomy": "material-tecnica", "multiple": true,
-      "options": { "allow_new_terms": "yes", "input_type": "tainacan-taxonomy-tag-input" },
+      "inbcm": "inbcm:matTecnica",
+      "name": "Material/Técnica",
+      "type": "Taxonomy",
+      "taxonomy": "material-tecnica",
+      "multiple": true,
+      "options": {
+        "allow_new_terms": "yes",
+        "input_type": "tainacan-taxonomy-tag-input"
+      },
       "description": "Materiais e técnicas visíveis, um termo por valor, preferindo os termos já existentes (ex.: Madeira, Entalhe, Pintura). Só o que for visualmente claro."
     },
     {
-      "inbcm": "inbcm:conservacao", "name": "Estado de Conservação", "type": "Selectbox",
-      "options": { "options": ["Bom", "Regular", "Ruim"] },
+      "inbcm": "inbcm:conservacao",
+      "name": "Estado de Conservação",
+      "type": "Selectbox",
+      "options": {
+        "options": [
+          "Bom",
+          "Regular",
+          "Ruim"
+        ]
+      },
       "description": "Bom: sem danos visíveis ou só desgaste leve. Regular: danos visíveis que não comprometem a leitura do objeto (manchas, pequenas perdas, trincas). Ruim: perdas, rasgos ou fraturas que comprometem o objeto. Na dúvida entre dois, escolha o pior."
     },
     {
-      "inbcm": "inbcm:localProd", "name": "Local de Produção", "type": "Text",
+      "inbcm": "inbcm:localProd",
+      "name": "Local de Produção",
+      "type": "Text",
       "description": "Local onde o objeto foi feito. Preencha só se estiver escrito no próprio objeto (marca, carimbo, legenda). Caso contrário, null."
     },
     {
-      "inbcm": "inbcm:dataProd", "name": "Data de Produção", "type": "Text",
+      "inbcm": "inbcm:dataProd",
+      "name": "Data de Produção",
+      "type": "Text",
       "description": "Data em que o objeto foi feito, como aparece no objeto (ex.: 24-12-1914, 1766). Preencha só se estiver inscrita; nunca estime por estilo. Caso contrário, null.",
       "placeholder": "Ex.: 1766; c. 1900; século XIX"
     },
     {
-      "inbcm": "inbcm:condReproducao", "name": "Condições de Reprodução", "type": "Text",
+      "inbcm": "inbcm:condReproducao",
+      "name": "Condições de Reprodução",
+      "type": "Text",
       "description": "Direitos de imagem e condições para reprodução do objeto.",
       "ai_exclude": true
     }

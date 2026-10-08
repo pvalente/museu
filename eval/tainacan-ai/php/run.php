@@ -29,5 +29,10 @@ foreach ($args as $id) {
     echo "- $k: " . json_encode($shown, JSON_UNESCAPED_UNICODE) . "\n";
     if ($f['value'] !== null) echo "  evidence: " . json_encode($f['evidence'] ?? null, JSON_UNESCAPED_UNICODE) . "\n";
   }
+  // What the Tesauro Museus matcher saw and picked (names tried, top candidates).
+  if (isset($d['result']['tesauro'])) {
+    $t = $d['result']['tesauro'];
+    echo '  tesauro: names=' . json_encode($t['names'], JSON_UNESCAPED_UNICODE) . ' -> ' . json_encode(array_map(fn ($c) => "{$c['label']} ({$c['method']} {$c['score']})", $t['candidates']), JSON_UNESCAPED_UNICODE) . "\n";
+  }
   echo "\n";
 }

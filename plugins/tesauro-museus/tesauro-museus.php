@@ -15,6 +15,16 @@ defined( 'ABSPATH' ) || exit;
 const TERM_META_ID  = 'tesauro_id';
 const TERM_META_ALT = 'tesauro_alt_label';
 const TERM_META_DEF = 'tesauro_scope_note';
+const TERM_META_KIND = 'tesauro_kind';
+
+require_once __DIR__ . '/includes/class-matcher.php';
+require_once __DIR__ . '/includes/class-tainacan-ai.php';
+
+add_action( 'plugins_loaded', function () {
+	if ( defined( 'TAINACAN_AI_VERSION' ) ) {
+		Tainacan_AI::init();
+	}
+} );
 
 /**
  * Imports thesaurus terms (data/*.json, built by tools/build.py) into an existing Tainacan taxonomy.
@@ -24,13 +34,14 @@ const TERM_META_DEF = 'tesauro_scope_note';
  *
  * @param string   $file      Path to the compiled thesaurus JSON.
  * @param string   $taxonomy  WordPress taxonomy name of the Tainacan taxonomy (e.g. tnc_tax_95).
- * @param int|null $max_level Deepest level to import (0 = classes, 1 = subclasses); null imports everything.
+ * @param string[] $kinds     Kinds to import (class, subclass, term); empty imports everything.
  * @param bool     $public_definitions Also put definitions in the term description, which Tainacan serves publicly.
  *                                     Off by default: the source only permits partial reproduction. Definitions
  *                                     are always kept in private term meta for matching.
- * @return array{created:int, updated:int}
+ * @param bool     $prune     Delete thesaurus terms in the taxonomy that this import didn't include.
+ * @return array{created:int, updated:int, deleted:int}
  */
-function import( string $file, string $taxonomy, ?int $max_level = null, bool $public_definitions = false ): array {
+function import( string $file, string $taxonomy, array $kinds = [], bool $public_definitions = false, bool $prune = false ): array {
 	$data = json_decode( (string) file_get_contents( $file ), true );
 	if ( ! isset( $data['terms'] ) ) {
 		throw new \RuntimeException( "Not a thesaurus file: $file" );
@@ -44,11 +55,11 @@ function import( string $file, string $taxonomy, ?int $max_level = null, bool $p
 		$existing[ get_term_meta( $term->term_id, TERM_META_ID, true ) ] = $term->term_id;
 	}
 
-	$stats  = [ 'created' => 0, 'updated' => 0 ];
+	$stats  = [ 'created' => 0, 'updated' => 0, 'deleted' => 0 ];
 	$wp_ids = [];
 	// Parents come before children in the file, so one pass resolves the hierarchy.
 	foreach ( $data['terms'] as $t ) {
-		if ( null !== $max_level && $t['level'] > $max_level ) {
+		if ( $kinds && ! in_array( $t['kind'], $kinds, true ) ) {
 			continue;
 		}
 		$parent = $t['parent'] ? ( $wp_ids[ $t['parent'] ] ?? 0 ) : 0;
@@ -71,12 +82,20 @@ function import( string $file, string $taxonomy, ?int $max_level = null, bool $p
 			++$stats['created'];
 		}
 		update_term_meta( $term_id, TERM_META_DEF, (string) ( $t['scope_note'] ?? '' ) );
+		update_term_meta( $term_id, TERM_META_KIND, $t['kind'] );
 		delete_term_meta( $term_id, TERM_META_ALT );
 		foreach ( $t['alt_labels'] as $alt ) {
 			add_term_meta( $term_id, TERM_META_ALT, $alt );
 		}
 		$wp_ids[ $t['id'] ] = $term_id;
 	}
+	if ( $prune ) {
+		foreach ( array_diff_key( $existing, $wp_ids ) as $term_id ) {
+			wp_delete_term( $term_id, $taxonomy );
+			++$stats['deleted'];
+		}
+	}
+	wp_cache_delete( 'matcher_' . $taxonomy, 'tesauro_museus' );
 	return $stats;
 }
 
@@ -92,15 +111,18 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	 * [--file=<file>]
 	 * : Compiled thesaurus JSON. Default: data/tesauro-ferrez-2016.json in this plugin.
 	 *
-	 * [--max-level=<level>]
-	 * : Deepest level to import: 0 = classes, 1 = subclasses. Default: all levels.
+	 * [--kinds=<kinds>]
+	 * : Comma-separated kinds to import: class, subclass, term. Default: all.
+	 *
+	 * [--prune]
+	 * : Delete thesaurus terms in the taxonomy that this import didn't include.
 	 *
 	 * [--public-definitions]
 	 * : Also show definitions as term descriptions (public in Tainacan). Only with the author's permission.
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp tesauro import "Classificação (Tesauro de Objetos)" --max-level=1
+	 *     wp tesauro import "Classificação (Tesauro de Objetos)" --kinds=class,subclass --prune
 	 *     wp tesauro import "Denominação (Tesauro de Objetos)"
 	 */
 	\WP_CLI::add_command(
@@ -114,9 +136,47 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			if ( ! $tax ) {
 				\WP_CLI::error( "Tainacan taxonomy not found: {$args[0]}" );
 			}
-			$max   = isset( $assoc['max-level'] ) ? (int) $assoc['max-level'] : null;
-			$stats = import( $file, $tax->get_db_identifier(), $max, isset( $assoc['public-definitions'] ) );
-			\WP_CLI::success( sprintf( '%s: %d created, %d updated.', $tax->get_name(), $stats['created'], $stats['updated'] ) );
+			$kinds = array_filter( explode( ',', $assoc['kinds'] ?? '' ) );
+			$stats = import( $file, $tax->get_db_identifier(), $kinds, isset( $assoc['public-definitions'] ), isset( $assoc['prune'] ) );
+			\WP_CLI::success( sprintf( '%s: %d created, %d updated, %d deleted.', $tax->get_name(), $stats['created'], $stats['updated'], $stats['deleted'] ) );
+		}
+	);
+
+	/**
+	 * Matches free text to thesaurus terms, for testing.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <taxonomy>
+	 * : Tainacan taxonomy name or ID.
+	 *
+	 * <text>...
+	 * : One or more names or titles to match.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp tesauro match "Denominação (Tesauro de Objetos)" "Escudela" "Bule de metal prateado com monograma"
+	 */
+	\WP_CLI::add_command(
+		'tesauro match',
+		function ( $args ) {
+			$repo = \Tainacan\Repositories\Taxonomies::get_instance();
+			$name = array_shift( $args );
+			$tax  = is_numeric( $name ) ? $repo->fetch( (int) $name ) : ( $repo->fetch( [ 'title' => $name, 'posts_per_page' => 1 ], 'OBJECT' )[0] ?? null );
+			if ( ! $tax ) {
+				\WP_CLI::error( "Tainacan taxonomy not found: $name" );
+			}
+			$matcher = new Matcher( $tax->get_db_identifier() );
+			foreach ( $args as $text ) {
+				$found = $matcher->match( $text );
+				\WP_CLI::log( "$text" );
+				foreach ( $found ?: [] as $c ) {
+					\WP_CLI::log( sprintf( '  %.2f %-8s %s', $c['score'], $c['method'], Tainacan_AI::path( $c['term_id'], $tax->get_db_identifier() ) ) );
+				}
+				if ( ! $found ) {
+					\WP_CLI::log( '  (no match)' );
+				}
+			}
 		}
 	);
 }
