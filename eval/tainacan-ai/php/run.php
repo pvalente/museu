@@ -1,7 +1,14 @@
 <?php
-// Usage: wp eval-file run.php <blueprint.json> <attachment ids...>
+// Usage: wp eval-file run.php <blueprint.json> [model=<anthropic model id>] <attachment ids...>
 // Runs Tainacan AI analysis on each attachment against the blueprint's collection and prints Markdown.
 $blueprint = json_decode(file_get_contents(array_shift($args)), true);
+// Optional model override for this run only (the site's own preference lives in mu-plugins/museu-ai.php).
+if ($args && str_starts_with($args[0], 'model=')) {
+  $model = substr(array_shift($args), 6);
+  if ($model !== '') {
+    add_filter('wpai_preferred_vision_models', fn ($models) => array_merge([['anthropic', $model]], $models), 99);
+  }
+}
 $name = $blueprint['collection']['name'];
 $col = \Tainacan\Repositories\Collections::get_instance()->fetch(['title' => $name, 'posts_per_page' => 1], 'OBJECT');
 if (!$col) { echo "Collection '$name' not found; apply the blueprint first.\n"; exit(1); }

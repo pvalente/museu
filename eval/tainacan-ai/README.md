@@ -19,6 +19,8 @@ before relying on it: run all cases, read the results, compare against the expec
 
 ```bash
 AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change
+# or try another model for this run only (the site keeps its own):
+AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change-haiku claude-haiku-5-5
 ```
 
 This **applies `prompt/preamble.txt` and the collection blueprint to the live site** (it tests the real pipeline: WordPress AI → Tainacan AI → Anthropic),
@@ -77,6 +79,7 @@ Checks that apply to every case:
 | `v2` | All 8 pass. Clarified mirror vs. faint print, titles may use the inscription, `max_tokens` raised to 4,000. |
 | `v2-rerun` | Same results on a second run. e6's description runs ~105 words (dense scene); acceptable. |
 | `inbcm-v2` | First run on the INBCM collection (same preamble). Título/Descrição as good as before. Data de Produção taken only from inscriptions (1914, 03, 1766) and null otherwise; Autor, Local, Dimensões correctly null everywhere; Material/Técnica sensible. One miss: e4 tags "Marfim" although the description only says "aparentemente de marfim" — tags can't hedge. Denominação/Classificação null (taxonomies still empty). |
+| `inbcm-v2-haiku` | Same prompt on **Claude Haiku 5.5** (`run.sh <label> claude-haiku-5-5`). Fine on plain objects (e1, e4, e5, e7, e8; e4 even avoids the "Marfim" tag). Worse where it matters most: e2 merges the signature and the faint printed name into "Carlo Carlos Ancini" without `[?]`, puts that in Autor, and normalizes "bôas" to "boas"; e3 misses Data de Produção "26/9/03"; e6 transcription has more confident misreadings ("Desp.to", "das Anjos") with fewer `[?]`. Verdict: keep Sonnet 5.5 for cataloguing. |
 
 Known limits: e4's monogram isn't read (fine; it's honest about it), and the ` / ` line breaks follow the AI's
 reading of the layout, so check them on long texts.
