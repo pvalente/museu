@@ -21,7 +21,13 @@ before relying on it: run all cases, read the results, compare against the expec
 AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change
 # or try another model for this run only (the site keeps its own):
 AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change-haiku claude-haiku-5-5
+# or set the reasoning effort (low|medium|high|xhigh|max) and/or max_tokens for this run only ("" keeps the site's model):
+AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change-low "" low
+AWS_PROFILE=museu eval/tainacan-ai/run.sh my-change-xhigh "" xhigh 16000
 ```
+
+Each case's header shows total tokens, output tokens (thinking included), thinking tokens, the stop reason and the
+request time.
 
 This **applies `prompt/preamble.txt` and the collection blueprint to the live site** (it tests the real pipeline: WordPress AI → Tainacan AI → Anthropic),
 uploads the images as temporary media titled `e1`…`e8` (neutral names so filenames don't hint the answer),
@@ -80,6 +86,7 @@ Checks that apply to every case:
 | `v2-rerun` | Same results on a second run. e6's description runs ~105 words (dense scene); acceptable. |
 | `inbcm-v2` | First run on the INBCM collection (same preamble). Título/Descrição as good as before. Data de Produção taken only from inscriptions (1914, 03, 1766) and null otherwise; Autor, Local, Dimensões correctly null everywhere; Material/Técnica sensible. One miss: e4 tags "Marfim" although the description only says "aparentemente de marfim" — tags can't hedge. Denominação/Classificação null (taxonomies still empty). |
 | `inbcm-v2-haiku` | Same prompt on **Claude Haiku 5.5** (`run.sh <label> claude-haiku-5-5`). Fine on plain objects (e1, e4, e5, e7, e8; e4 even avoids the "Marfim" tag). Worse where it matters most: e2 merges the signature and the faint printed name into "Carlo Carlos Ancini" without `[?]`, puts that in Autor, and normalizes "bôas" to "boas"; e3 misses Data de Produção "26/9/03"; e6 transcription has more confident misreadings ("Desp.to", "das Anjos") with fewer `[?]`. Verdict: keep Sonnet 5.5 for cataloguing. |
+| `inbcm-effort-*` | Effort sweep on Sonnet 5.5 (`output_config.effort`; API default is `high`). `low` and `medium` never think (0 thinking tokens on all 8) and cost ~US$0.022/image vs ~0.028 at `high` (−21%), 6 s vs 10 s; but in 5/5 runs they put the printed "E. E. Santo" (the state, Espírito Santo) in e2's Autor, and `medium` missed e3's Data de Produção "26/9/03" twice. `high` thinks only on the text-heavy e2, e3, e6 and passes (2/2). `xhigh` hits the 4,000 max_tokens on e2 and e6. Verdict: keep the default (`high`). |
 
 Known limits: e4's monogram isn't read (fine; it's honest about it), and the ` / ` line breaks follow the AI's
 reading of the layout, so check them on long texts.

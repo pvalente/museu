@@ -2,12 +2,16 @@
 # Runs the Tainacan AI eval on the live server: applies prompt/preamble.txt and the collection blueprint
 # (field guidance) to the site, uploads images/ as temporary media (titled e1..e8), analyzes each against
 # the blueprint's collection, then deletes the uploads.
-# Usage: AWS_PROFILE=museu eval/tainacan-ai/run.sh <label> [model]   -> writes results/<date>-<label>.md
-#        model: optional Anthropic model id for this run only, e.g. claude-haiku-5-5 (default: the site's).
+# Usage: AWS_PROFILE=museu eval/tainacan-ai/run.sh <label> [model] [effort] [max_tokens]   -> writes results/<date>-<label>.md
+#        model: optional Anthropic model id for this run only, e.g. claude-haiku-5-5 (default: the site's; "" to keep it).
+#        effort: optional output_config.effort for this run only: low, medium, high, xhigh or max (default: the API's).
+#        max_tokens: optional cap for this run only (default: the Tainacan AI setting). Thinking counts toward it.
 set -euo pipefail
 DIR=$(cd "$(dirname "$0")" && pwd)
-LABEL=${1:?usage: run.sh <label> [model]}
+LABEL=${1:?usage: run.sh <label> [model] [effort] [max_tokens]}
 MODEL=${2:-}
+EFFORT=${3:-}
+MAX_TOKENS=${4:-}
 HOST=ubuntu@15.229.74.37
 OUT="$DIR/results/$(date +%F)-$LABEL.md"
 BLUEPRINT="$DIR/../../scripts/tainacan/inbcm-museologico.json"
@@ -27,7 +31,7 @@ ssh "${SSH_OPTS[@]}" "$HOST" 'rm -rf /tmp/tainacan-ai-eval && mkdir /tmp/tainaca
 scp -q "${SSH_OPTS[@]}" -r "$DIR/images" "$DIR/prompt" "$DIR/php" "$HOST:/tmp/tainacan-ai-eval/"
 scp -q "${SSH_OPTS[@]}" "$BLUEPRINT" "$DIR/../../scripts/tainacan/apply-blueprint.php" "$HOST:/tmp/tainacan-ai-eval/php/"
 
-ssh "${SSH_OPTS[@]}" "$HOST" MODEL="$MODEL" bash -s > "$OUT" <<'REMOTE'
+ssh "${SSH_OPTS[@]}" "$HOST" MODEL="$MODEL" EFFORT="$EFFORT" MAX_TOKENS="$MAX_TOKENS" bash -s > "$OUT" <<'REMOTE'
 set -e
 cd /opt/museu
 # docker compose exec reads stdin, which is this script; give it /dev/null so it doesn't eat the rest.
@@ -40,7 +44,7 @@ IDS=""
 for f in $(ls $X/images/*.jpg | sort); do
   IDS="$IDS $(WP media import "$f" --title="$(basename "$f" .jpg)" --porcelain 2>/dev/null)"
 done
-WP eval-file $X/php/run.php $X/php/inbcm-museologico.json "model=$MODEL" $IDS 2>/dev/null
+WP eval-file $X/php/run.php $X/php/inbcm-museologico.json "model=$MODEL" "effort=$EFFORT" "max_tokens=$MAX_TOKENS" $IDS 2>/dev/null
 WP post delete $IDS --force >/dev/null 2>&1
 sudo docker compose exec -T wordpress rm -rf $X </dev/null
 rm -rf $X
