@@ -35,8 +35,9 @@ $WP option update default_ping_status closed
 $WP plugin auto-updates enable --all --disabled-only || true
 $WP theme auto-updates enable --all --disabled-only || true
 $WP option update auto_update_core_major disabled
-# Keep temporary sslip.io hostnames out of search engines; set-domain.sh turns indexing on for a real domain.
-case "$WP_HOME" in *sslip.io*|*localhost*) $WP option update blog_public 0 ;; *) $WP option update blog_public 1 ;; esac
+# Keep temporary sslip.io/localhost hostnames out of search engines. Real domains keep their setting;
+# going public is a deliberate step: wp option update blog_public 1
+case "$WP_HOME" in *sslip.io*|*localhost*) $WP option update blog_public 0 ;; esac
 # First run only: static home page (content/home.html), header menu, and remove WP's sample content.
 if [ "$($WP option get show_on_front)" != page ]; then
   HOME_ID=$($WP post create - --post_type=page --post_title="Início" --post_name=inicio --post_status=publish --porcelain < content/home.html)
