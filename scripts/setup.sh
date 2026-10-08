@@ -32,8 +32,8 @@ $WP option update time_format 'H:i'
 $WP option update default_comment_status closed
 $WP option update default_ping_status closed
 # Plugins/themes update themselves; major core versions stay manual (minor/security stay automatic).
-$WP plugin auto-updates enable --all
-$WP theme auto-updates enable --all
+$WP plugin auto-updates enable --all --disabled-only || true
+$WP theme auto-updates enable --all --disabled-only || true
 $WP option update auto_update_core_major disabled
 # Keep temporary sslip.io hostnames out of search engines; set-domain.sh turns indexing on for a real domain.
 case "$WP_HOME" in *sslip.io*|*localhost*) $WP option update blog_public 0 ;; *) $WP option update blog_public 1 ;; esac
