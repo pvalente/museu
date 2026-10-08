@@ -20,6 +20,7 @@ TEXTOS, INSCRIÇÕES E MANUSCRITOS
 - Distinga texto manuscrito de texto impresso, carimbado ou gravado.
 - Só trate como "transparecendo do outro lado" um texto que esteja ESPELHADO (letras invertidas); nesse caso, diga isso e não transcreva. Texto impresso ou carimbado claro e legível na ordem normal, mesmo desbotado ou sob a escrita, faz parte do objeto: transcreva-o, com [?] se necessário.
 - Não chame um lado de "frente" ou "verso" a menos que isso seja evidente.
+- Não são inscrições: números de registro ou inventário do museu, etiquetas, tags, réguas e escalas de cor postas para a foto. Não os transcreva.
 
 PESSOAS E TEMAS SENSÍVEIS
 - Descreva só o visível; não suponha identidade, etnia ou religião de pessoas retratadas, exceto quando o texto inscrito as nomeia.

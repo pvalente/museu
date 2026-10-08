@@ -91,7 +91,7 @@
         "allow_new_terms": "yes",
         "input_type": "tainacan-taxonomy-radio"
       },
-      "description": "Nome do objeto como em catálogos de museus brasileiros: o substantivo no singular, com o qualificativo que define o tipo quando houver tipos diferentes (ex.: \"Placa comemorativa\", não \"Placa\"; \"Cesta\", \"Tigela\", \"Ex-voto\", \"Escultura\"). Sem material, cor, decoração ou tema. Sempre sugira um nome, mesmo que não esteja na lista; ele será conferido com o Tesauro de Objetos."
+      "description": "Nome do objeto como em catálogos de museus brasileiros: o substantivo no singular, no termo mais específico que se aplica, com o qualificativo que define o tipo (ex.: \"Placa comemorativa\" para placa de homenagem, saudação ou inauguração, nunca só \"Placa\"; \"Cesta\", \"Tigela\", \"Ex-voto\", \"Escultura\"). Parte quebrada ou solta de um objeto: \"Fragmento\" (o título diz de quê). Sem material, cor, decoração ou tema. Sempre sugira um nome, mesmo que não esteja na lista; ele será conferido com o Tesauro de Objetos."
     },
     {
       "inbcm": "inbcm:titulo",
@@ -121,7 +121,7 @@
     {
       "inbcm": "inbcm:resumoDes",
       "core": "description",
-      "description": "No máximo 5 frases e 90 palavras, no presente, só sobre o objeto: tipo, forma, material e técnica aparentes, cores, decoração e danos visíveis. Se houver texto no objeto, acrescente depois um parágrafo começando com \"Inscrições:\", com a localização e a transcrição literal entre aspas (ex.: Inscrições: manuscrito, ao centro: \"Ao bondoso amigo / Lula\"; impresso, canto inferior esquerdo: \"Villa de Santa Thereza\")."
+      "description": "No máximo 5 frases e 90 palavras, no presente, só sobre o objeto: tipo, forma, material e técnica aparentes, cores, decoração e danos visíveis. Se houver texto no objeto, acrescente depois um parágrafo começando com \"Inscrições:\" (sem números de inventário, etiquetas ou escalas do museu), com a localização e a transcrição literal entre aspas (ex.: Inscrições: manuscrito, ao centro: \"Ao bondoso amigo / Lula\"; impresso, canto inferior esquerdo: \"Villa de Santa Thereza\")."
     },
     {
       "inbcm": "inbcm:dimensoes",

@@ -88,6 +88,13 @@ class Tainacan_AI {
 				$best = $found;
 			}
 		}
+		$context = [];
+		foreach ( [ $title_slug, $col->get_core_description_metadatum()->get_slug() ] as $slug ) {
+			if ( is_string( $meta[ $slug ]['value'] ?? null ) ) {
+				$context[] = $meta[ $slug ]['value'];
+			}
+		}
+		$best = self::break_ties( $best, $fields['name']['taxonomy'], implode( ' ', $context ) );
 		$data['result']['tesauro'] = [ 'names' => $names, 'candidates' => $best ];
 		if ( ! $best ) {
 			$response->set_data( $data );
@@ -99,7 +106,8 @@ class Tainacan_AI {
 		$meta[ $fields['name']['slug'] ] = [
 			'value'    => $fields['name']['multiple'] ? [ $top['term_id'] ] : $top['term_id'],
 			'label'    => $fields['name']['multiple'] ? [ $top['label'] ] : $top['label'],
-			'evidence' => sprintf( 'Tesauro (%s: "%s"): %s', $top['method'], $top['matched'], self::path( $top['term_id'], $fields['name']['taxonomy'] ) )
+			'evidence' => ( empty( $top['ambiguous'] ) ? '' : 'Ambíguo, confira as alternativas. ' )
+				. sprintf( 'Tesauro (%s: "%s"): %s', $top['method'], $top['matched'], self::path( $top['term_id'], $fields['name']['taxonomy'] ) )
 				. ( $alts ? '. Alternativas: ' . implode( '; ', $alts ) : '' ),
 		];
 
@@ -115,6 +123,38 @@ class Tainacan_AI {
 		}
 		$response->set_data( $data );
 		return $response;
+	}
+
+	/**
+	 * Homonyms ("Placa (condecoração)", "Placa (relevo)", "Cravo" and "Cravo (prego)") come back from Matcher with the
+	 * same score, or 0.02 apart for a qualifier. Reorder those by how many words of their qualifier, path and (private)
+	 * definition appear in the AI's title and description, score breaking equal counts; a tie that context can't
+	 * break is flagged, not silently picked.
+	 */
+	public static function break_ties( array $candidates, string $taxonomy, string $context ): array {
+		$close = fn( $c ) => $candidates[0]['score'] - $c['score'] <= 0.021;
+		if ( count( $candidates ) < 2 || ! $close( $candidates[1] ) ) {
+			return $candidates;
+		}
+		$words = fn( $text ) => array_filter( explode( ' ', Matcher::normalize( $text ) ), fn( $w ) => strlen( $w ) > 3 );
+		$seen  = array_flip( $words( $context ) );
+		$tied  = [];
+		foreach ( $candidates as $i => $c ) {
+			if ( ! $close( $c ) ) {
+				break;
+			}
+			// The qualifier is dropped by normalize(), so read it separately.
+			preg_match( '/\(([^)]*)\)/', $c['label'], $q );
+			$about = ( $q[1] ?? '' ) . ' ' . self::path( $c['term_id'], $taxonomy ) . ' ' . get_term_meta( $c['term_id'], TERM_META_DEF, true );
+			$tied[ $i ] = count( array_intersect_key( array_flip( $words( $about ) ), $seen ) );
+		}
+		arsort( $tied ); // Stable since PHP 8: equal overlaps keep Matcher's order (score, then label).
+		$order = array_keys( $tied );
+		$out   = array_map( fn( $i ) => $candidates[ $i ], $order );
+		if ( $tied[ $order[0] ] === $tied[ $order[1] ] && $out[0]['score'] === $out[1]['score'] ) {
+			$out[0]['ambiguous'] = true;
+		}
+		return array_merge( $out, array_slice( $candidates, count( $tied ) ) );
 	}
 
 	/** "Class › Subclass › Term" for a term in a thesaurus taxonomy. */
