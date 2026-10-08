@@ -18,6 +18,9 @@ $WP plugin install tainacan --activate
 # Blocksy + Tainacan's official integration; look tweaks live in wp-content/mu-plugins/museu-blocksy.php.
 $WP theme install blocksy --activate
 $WP plugin install tainacan-blocksy --activate
+# Outgoing email: the image has no MTA and AWS blocks port 25. Configure in Settings -> FluentSMTP
+# (Resend: smtp.resend.com:587 TLS, user "resend", password = Resend API key).
+$WP plugin install fluent-smtp --activate
 # Drop bundled extras we don't use; keep the newest default theme as a fallback.
 $WP plugin delete akismet hello 2>/dev/null || true
 $WP theme delete twentytwentythree twentytwentyfour 2>/dev/null || true
