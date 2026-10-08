@@ -561,7 +561,7 @@
       "denominacao": "Sextante",
       "classificacao": "Equipamentos associados à topografia e à navegação",
       "classe": "Equipamentos de atividades científicas e tecnológicas",
-      "data_producao": "1922",
+      "data_producao": null,
       "inscricoes": "Sextante / que depois de usado por / Santos=Dumont / foi por êle dado a Gago Coutinho / em 1922",
       "notes": "From view 1 alone only 'sextante' and materials are knowable. With views 2–3 the answer must transcribe the plate and may use it for history, but Data de Produção should be null or clearly about the gift (1922 is the date of the donation, not of manufacture) — a good answer does not put 1922 as production date without saying so. Material/Técnica: Metal, Vidro, Madeira."
     },
@@ -633,8 +633,8 @@
       "classificacao": "Equipamento de comunicação escrita",
       "classe": "Equipamento de comunicação",
       "data_producao": null,
-      "inscricoes": "CABANGU; S=D; MANTIQUEIRA; J. XAVIER / RUA SACHET 10",
-      "notes": "View 2 shows the stamp face in mirror image: a good answer reads it as 'CABANGU / S=D / MANTIQUEIRA' (or says it is mirrored and transcribes the reading) and does not transcribe letters backwards. View 3 has the maker/seller stamp 'J. Xavier, Rua Sachet 10' (the '1790' and 'RG 1790' are museum numbers, not inscriptions). It is an ink hand stamp, so 'Carimbo'; 'Carimbo (selo)' acceptable.",
+      "inscricoes": "CABANGU; S=D; MANTIQUEIRA; J. XAVIER / RUA SACHET 18",
+      "notes": "View 2 shows the stamp face in mirror image: a good answer reads it as 'CABANGU / S=D / MANTIQUEIRA' (or says it is mirrored and transcribes the reading) and does not transcribe letters backwards. View 3 has the maker/seller stamp 'J. Xavier, Rua Sachet 18' (the '1790' and 'RG 1790' are museum numbers, not inscriptions). It is an ink hand stamp, so 'Carimbo'; 'Carimbo (selo)' acceptable.",
       "denominacao_alternativas": [
         "Carimbo (selo)"
       ]
@@ -660,7 +660,7 @@
         "license": "CC BY-SA 4.0"
       }
     ],
-    "multi_view_gain": "View 1 shows only a handled stamp with the museum tag; view 2 reveals the text and monogram (Santos Dumont's Cabangu farm in the Mantiqueira, 'S=D'); view 3 reveals the maker's mark 'J. Xavier, Rua Sachet 10'."
+    "multi_view_gain": "View 1 shows only a handled stamp with the museum tag; view 2 reveals the text and monogram (Santos Dumont's Cabangu farm in the Mantiqueira, 'S=D'); view 3 reveals the maker's mark 'J. Xavier, Rua Sachet 18'."
   },
   {
     "id": "m4",
