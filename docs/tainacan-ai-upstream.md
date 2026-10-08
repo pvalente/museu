@@ -45,3 +45,21 @@ The plugin's "send the URL if public" logic dates from the ~April 2026 connector
 Likely shape of a fix: inline by default (ideally a resized intermediate size to stay under Anthropic's 10 MB/image),
 drop the HEAD heuristic, and offer a filter to opt into URLs. Separately, the Anthropic connector could accept image
 URLs (its API does) — a small issue for that repo, not a fix for #44.
+
+## Context the model gets (audit 2026-10-08, 0.2.0 and `main` @ d798413)
+
+| | Today |
+|---|---|
+| Images | **One**: the item's document (else thumbnail, else first attachment). Other photos of the object (back, base, marks) are never sent, though `CoreAI::generate_json_from_text_and_files` already accepts several files and the PDF path already sends up to 3 page images. No resizing; no image picker. |
+| Existing values | **Not sent.** The prompt has field definitions, not the item's current values. |
+| "Fill all" | **Overwrites** any field the AI returned a value for, without comparing to the current value or confirming. No "verified/locked" notion. The per-field fill button is the safe path. |
+| Other | No collection name/description; EXIF shown in the UI but not prompted; cache keyed per attachment only. |
+
+Improvements, in priority order:
+1. **Known values as context, never overwritten:** send the filled fields as "KNOWN VALUES (verified, do not contradict)" and skip them in extraction/Fill all. Doable as a site add-on now (capture `item_id` in `rest_request_before_callbacks`, add a section via `tainacan_ai_analysis_prompt_sections`, drop filled fields via `tainacan_ai_supports_extraction_for_prompt`, force refresh). Upstream: pass `item_id` to the prompt filters; "fill empty only" by default; per-field diff in the UI.
+2. **Several images per item:** document plus other image attachments, labelled ("Image 2 of 4"), capped (~4). Needs upstream: `attachment_ids[]` on `/analyze`, N files in `analyze_image`, cache key over the set. Not doable via `wp_ai_client_before_generate_result` (messages are immutable there).
+3. **Downscale before sending** (an intermediate size, ~1568 px): cheaper, fits provider limits, makes multi-image affordable; helps #44.
+4. **Image picker** in the item form (thumbnails with checkboxes, optional caption per image).
+5. Small: collection name/description as context; keep EXIF out of the prompt.
+
+All of these must follow the rules above: optional new REST params with today's single-image behaviour as default, WP 7.0+ and PHP 8.0 compatible.
