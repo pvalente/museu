@@ -1,5 +1,20 @@
 # Production reverse proxy with automatic HTTPS (Let's Encrypt).
+
+# Keep crawlers out while the site isn't public. Remove `import private` below to go public
+# (and run `wp option update blog_public 1`).
+(private) {
+	header X-Robots-Tag "noindex, nofollow, noarchive, noimageindex"
+	respond /robots.txt <<TXT
+		User-agent: *
+		Disallow: /
+		TXT 200
+	# Crawlers that ignore robots.txt. Also blocks link previews (Slack, Facebook/WhatsApp, etc.).
+	@bots header_regexp User-Agent (?i)(bot|crawl|spider|slurp|facebookexternalhit|bytespider|ccbot|gptbot|claude|anthropic|perplexity|diffbot|semrush|ahrefs|mj12|dataforseo|petalbot|yandex|baidu|imagesift|timpi|omgili)
+	respond @bots 403
+}
+
 {$DOMAIN} {
+	import private
 	encode zstd gzip
 	# XML-RPC is mostly used for password brute-forcing; Tainacan doesn't need it.
 	respond /xmlrpc.php 403
